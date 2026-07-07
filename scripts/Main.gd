@@ -127,7 +127,7 @@ func _render_card() -> void:
 func _update_stats() -> void:
 	valuation_label.text = GameState.fmt_money(GameState.valuation)
 	cash_label.text = GameState.fmt_money(int(GameState.stats.cash))
-	cash_caption.text = "CASH  -$%dK/MO" % GameState.current_burn()
+	cash_caption.text = "CASH  -%s/MO" % GameState.fmt_money(GameState.current_burn())
 	morale_label.text = "%d" % int(GameState.stats.morale)
 	hype_label.text = "%d" % int(GameState.stats.hype)
 	equity_label.text = "%d%%" % int(GameState.stats.equity)

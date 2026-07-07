@@ -764,7 +764,7 @@
     "text": "A competitor offers a $2M acquihire. 'It's a good outcome,' they say. They say it twice.",
     "left": { "label": "Take the soft landing", "effects": { "set_valuation": 2000 }, "exit": true },
     "right": { "label": "We die on our feet", "effects": { "morale": 5, "hype": 3 } },
-    "requires": { "flag": "desperate", "min_month": 12 },
+    "requires": { "flag": "desperate", "max_valuation": 8000, "min_month": 12 },
     "weight": 12,
     "once": true
   },
@@ -774,7 +774,7 @@
     "text": "BigCorp offers $30M cash for the company. All of it. Signed by Friday.",
     "left": { "label": "Sell for $30M", "effects": { "set_valuation": 30000 }, "exit": true },
     "right": { "label": "We're going bigger", "effects": { "hype": 12, "morale": 5 }, "sets_flag": "went_bigger" },
-    "requires": { "min_valuation": 15000, "min_month": 15 },
+    "requires": { "min_valuation": 15000, "max_valuation": 60000, "min_month": 15 },
     "weight": 10,
     "once": true
   },
@@ -784,7 +784,7 @@
     "text": "BigCorp came back. $45M this time. The banker says 'final offer' in a tone that means it.",
     "left": { "label": "Sell for $45M", "effects": { "set_valuation": 45000 }, "exit": true },
     "right": { "label": "IPO or bust", "effects": { "hype": 10, "morale": -5 } },
-    "requires": { "flag": "went_bigger", "min_valuation": 20000 },
+    "requires": { "flag": "went_bigger", "min_valuation": 20000, "max_valuation": 90000 },
     "weight": 12,
     "once": true
   },
@@ -794,7 +794,7 @@
     "text": "A strategic acquirer offers $8M. 'Your team would love our campus. We have four cafeterias.'",
     "left": { "label": "Take the $8M", "effects": { "set_valuation": 8000 }, "exit": true },
     "right": { "label": "We have a microwave and a dream", "effects": { "morale": 6, "hype": 3 } },
-    "requires": { "min_valuation": 5000, "min_month": 12 },
+    "requires": { "min_valuation": 5000, "max_valuation": 20000, "min_month": 12 },
     "weight": 10,
     "once": true
   },
@@ -804,7 +804,7 @@
     "text": "The bankers are here. NASDAQ. Ticker symbol picked. You'd ring an actual bell.",
     "left": { "label": "Ring the bell", "effects": { "set_valuation": 90000 }, "exit": true },
     "right": { "label": "Stay private, stay free", "effects": { "hype": 8, "morale": 5 } },
-    "requires": { "min_valuation": 50000, "min_month": 30 },
+    "requires": { "min_valuation": 50000, "max_valuation": 250000, "min_month": 30 },
     "weight": 16,
     "once": true
   },
@@ -814,7 +814,7 @@
     "text": "A billionaire tweeted 'I should buy this' about your company at 3am. His lawyers confirmed he's serious. Ish.",
     "left": { "label": "Sell for $50M before he sobers up", "effects": { "set_valuation": 50000 }, "exit": true },
     "right": { "label": "Reply with a meme", "effects": { "hype": 15 } },
-    "requires": { "min_hype": 70, "min_valuation": 15000 },
+    "requires": { "min_hype": 70, "min_valuation": 15000, "max_valuation": 120000 },
     "weight": 12,
     "once": true
   },
@@ -824,7 +824,7 @@
     "text": "A private equity firm offers $12M. They use the word 'streamline' four times. Your team's faces fall.",
     "left": { "label": "Take the $12M", "effects": { "set_valuation": 12000 }, "exit": true },
     "right": { "label": "Not like this", "effects": { "morale": 8 } },
-    "requires": { "min_valuation": 8000, "min_month": 24 },
+    "requires": { "min_valuation": 8000, "max_valuation": 30000, "min_month": 24 },
     "weight": 12,
     "once": true
   },
@@ -834,7 +834,7 @@
     "text": "A SPAC named after a Greek god wants to take you public. Their last three deals are down 90%. But the god is Zeus.",
     "left": { "label": "Merge with Zeus", "effects": { "set_valuation": 25000 }, "exit": true },
     "right": { "label": "SPACs are astrology for MBAs", "effects": { "morale": 3 } },
-    "requires": { "flag": "funded_a", "min_month": 20 },
+    "requires": { "flag": "funded_a", "max_valuation": 80000, "min_month": 20 },
     "weight": 10,
     "once": true
   },
@@ -1223,6 +1223,299 @@
     "right": { "label": "Cancel half our stack", "effects": { "morale": -4 }, "sets_flag": "lean_ops" },
     "requires": { "min_month": 6 },
     "weight": 8,
+    "once": true
+  },
+  {
+    "id": "fund_series_c",
+    "character": "doug",
+    "text": "Series C: $50M at a $300M post. The deck writes itself now. Mostly it writes the word 'category-defining'.",
+    "left": { "label": "Take $50M for 10%", "effects": { "cash": 50000, "equity": -10, "set_valuation": 300000 }, "sets_flag": "funded_c" },
+    "right": { "label": "We don't need it yet", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 120000, "min_month": 16 },
+    "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_series_d",
+    "character": "doug",
+    "text": "Series D: $150M at a $1B post-money. Unicorn. There will be a party. There will be an ice sculpture.",
+    "left": { "label": "Take $150M for 8%", "effects": { "cash": 150000, "equity": -8, "set_valuation": 1000000 }, "sets_flag": "funded_d" },
+    "right": { "label": "Horses are fine too", "effects": { "morale": 3, "hype": -3 } },
+    "requires": { "min_valuation": 450000, "min_month": 20, "min_hype": 25 },
+    "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_growth",
+    "character": "doug",
+    "text": "A mega-fund flew in. The partner draws a slide with your logo at the center of a spiral. $300M at $2.5B. The spiral is not explained.",
+    "left": { "label": "Take $300M for 7%", "effects": { "cash": 300000, "equity": -7, "set_valuation": 2500000 }, "sets_flag": "funded_growth" },
+    "right": { "label": "Decline the spiral", "effects": { "morale": 4 } },
+    "requires": { "min_valuation": 1400000, "min_month": 24, "min_hype": 35 },
+    "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "unicorn_party",
+    "character": "linda",
+    "text": "We're worth a billion dollars. On paper. Chad ordered an ice sculpture of the logo. It's melting. The metaphor is free.",
+    "left": { "label": "Throw the unicorn party", "effects": { "cash": -200, "morale": 12, "hype": 8 } },
+    "right": { "label": "Paper isn't payroll. Back to work.", "effects": { "morale": -6, "hype": 3 } },
+    "requires": { "min_valuation": 1000000 },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "forbes_cover",
+    "character": "chad",
+    "text": "Forbes wants you on the cover. Statistically, the cover curse is real. Chad has already ordered frames.",
+    "left": { "label": "Do the cover", "effects": { "hype": 12, "morale": 4 } },
+    "right": { "label": "Covers are for exits", "effects": { "morale": 3, "hype": -4 } },
+    "requires": { "min_valuation": 800000 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "davos_panel",
+    "character": "doug",
+    "text": "Davos invite. A panel called 'The Future of Everything'. You'd sit between a central banker and a DJ.",
+    "left": { "label": "Go say 'AI' on the panel", "effects": { "cash": -50, "hype": 10, "morale": -5 } },
+    "right": { "label": "Stay home and ship", "effects": { "morale": 6 } },
+    "requires": { "min_valuation": 2000000 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "hire_coo",
+    "character": "doug",
+    "text": "The board wants a COO who has 'done this before'. The candidate has a framed org chart and a catchphrase: 'operational rigor'.",
+    "left": { "label": "Hire the grown-up", "effects": { "cash": -150, "morale": 6 }, "sets_flag": "hired_coo" },
+    "right": { "label": "I run my own company", "effects": { "morale": -4 }, "sets_flag": "board_tension" },
+    "requires": { "flag": "funded_c" },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "exec_poached",
+    "character": "linda",
+    "text": "A competitor poached your VP of Engineering. Their offer letter reportedly has a yacht clause. We don't have a yacht clause.",
+    "left": { "label": "Counter with everything", "effects": { "cash": -250, "morale": 4 } },
+    "right": { "label": "Nobody is irreplaceable", "effects": { "morale": -8, "hype": -4 } },
+    "requires": { "flag": "funded_d" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "antitrust_letter",
+    "character": "linda",
+    "text": "A senator tweeted your company name next to the word 'monopoly'. Legal wants a strategy. Legal is visibly sweating.",
+    "left": { "label": "Lawyer up, comply hard", "effects": { "cash": -400, "hype": -4 } },
+    "right": { "label": "Charm offensive in DC", "effects": { "cash": -100, "hype": 5, "morale": -4 } },
+    "requires": { "min_valuation": 2500000 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "wsj_expose",
+    "character": "chad",
+    "text": "The WSJ is running 'The Cult of Us'. Sources: 'former employees'. Plural. One of them kept receipts. Literal receipts.",
+    "left": { "label": "Crisis PR firm", "effects": { "cash": -300, "hype": -6 } },
+    "right": { "label": "Publish our own postmortem", "effects": { "hype": -12, "morale": 6 } },
+    "requires": { "min_valuation": 1200000 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "intl_expansion",
+    "character": "linda",
+    "text": "Europe wants the product. Europe also wants GDPR compliance, works councils, and the entire month of August off.",
+    "left": { "label": "Open the London office", "effects": { "cash": -400, "hype": 12 } },
+    "right": { "label": "Win at home first", "effects": { "morale": 5 } },
+    "requires": { "flag": "funded_c" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "whale_customer",
+    "character": "doug",
+    "text": "A Fortune 500 wants an $800K annual contract. Their security questionnaire has 400 tabs. Tab 51 asks about your feelings.",
+    "left": { "label": "Fill in all 400 tabs", "effects": { "cash": 800, "morale": -8 } },
+    "right": { "label": "We're not an IT vendor", "effects": { "morale": 4, "hype": -3 } },
+    "requires": { "flag": "funded_c" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "acquire_rival",
+    "character": "doug",
+    "text": "Your smaller rival is for sale. You'd get their users, their team, and a codebase the seller describes as 'spirited'.",
+    "left": { "label": "Buy them", "effects": { "cash": -600, "hype": 10, "morale": -5 }, "sets_flag": "acquired_rival" },
+    "right": { "label": "Let someone else inherit it", "effects": { "morale": 2 } },
+    "requires": { "flag": "funded_d" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "moonshot_lab",
+    "character": "priya",
+    "text": "Priya wants a moonshot lab. Five engineers, no roadmap, one rule: build the thing that kills our own product before someone else does.",
+    "left": { "label": "Fund the lab", "effects": { "cash": -500, "morale": 10, "hype": 8 } },
+    "right": { "label": "Focus is a feature", "effects": { "morale": -4 } },
+    "requires": { "flag": "funded_d" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "efficiency_era",
+    "character": "linda",
+    "text": "The board says the word is 'efficiency' now. They mean layoffs. They always mean layoffs.",
+    "left": { "label": "Cut 15%", "effects": { "cash": 600, "morale": -18, "hype": -6 }, "sets_flag": "layoffs" },
+    "right": { "label": "Protect the team", "effects": { "cash": -100, "morale": 10 } },
+    "requires": { "flag": "funded_d", "min_month": 26 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "cloud_bill_scale",
+    "character": "priya",
+    "text": "The cloud bill crossed $1M a month. AWS sent a gift basket and, separately, an invoice. The basket had a pear.",
+    "left": { "label": "Negotiate an enterprise deal", "effects": { "cash": -200 }, "sets_flag": "lean_infra" },
+    "right": { "label": "Build our own datacenter", "effects": { "cash": -800, "morale": 6, "hype": 4 } },
+    "requires": { "flag": "funded_c" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "culture_scale",
+    "character": "linda",
+    "text": "We have 300 employees now. Someone asked who you were. In the elevator. Of your own building.",
+    "left": { "label": "All-hands listening tour", "effects": { "cash": -100, "morale": 10 } },
+    "right": { "label": "Ship a values memo", "effects": { "morale": -5 } },
+    "requires": { "flag": "funded_c" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "board_ipo_pressure",
+    "character": "doug",
+    "text": "Doug wants an IPO timeline. He's wearing a tie. Doug has never worn a tie. The fund's fund has questions.",
+    "left": { "label": "Start the S-1", "effects": { "hype": 8, "morale": -5 }, "sets_flag": "ipo_track" },
+    "right": { "label": "Private means free", "effects": { "morale": 4, "hype": -3 } },
+    "requires": { "flag": "funded_d", "min_month": 27 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "s1_leak",
+    "character": "chad",
+    "text": "The S-1 leaked early. Everyone now knows the burn rate, the risk factors, and your salary. Mostly your salary.",
+    "left": { "label": "Lean in, start the roadshow", "effects": { "hype": 10, "morale": -4 } },
+    "right": { "label": "Quiet period means quiet", "effects": { "hype": -6 } },
+    "requires": { "flag": "ipo_track" },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "market_crash",
+    "character": "doug",
+    "text": "Public comps dropped 60% in a quarter. Doug calls it 'a healthy reset'. His voice is not healthy.",
+    "left": { "label": "Calm all-hands, steady hands", "effects": { "morale": 8, "hype": -10 } },
+    "right": { "label": "Freeze hiring, hoard cash", "effects": { "cash": 150, "morale": -8, "hype": -5 } },
+    "requires": { "min_valuation": 400000, "min_month": 22 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "growth_stall",
+    "character": "linda",
+    "text": "Growth is flat this quarter. At our valuation, 'flat' is a synonym for 'falling'. The board deck uses a log scale now.",
+    "left": { "label": "Spend into the stall", "effects": { "cash": -400, "hype": 10 } },
+    "right": { "label": "Call it 'efficient growth'", "effects": { "morale": -6, "hype": -6 } },
+    "requires": { "min_valuation": 1000000, "min_month": 24 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "secondary_sale",
+    "character": "doug",
+    "text": "The round is oversubscribed. You could sell 3% personally. Actual money. The kind that buys a house instead of a story about a house.",
+    "left": { "label": "Sell 3%, buy the house", "effects": { "equity": -3, "morale": 15 }, "sets_flag": "sold_secondary" },
+    "right": { "label": "All in until the end", "effects": { "morale": 4, "hype": 2 } },
+    "requires": { "flag": "funded_d" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "mom_unicorn",
+    "character": "mom",
+    "text": "Mom heard the word 'unicorn' on the news next to your name. She's worried it's a cult. Grandma, privately, is intrigued.",
+    "left": { "label": "Fly them out, first class", "effects": { "cash": -20, "morale": 12 } },
+    "right": { "label": "Explain cap tables by phone", "effects": { "morale": 4 } },
+    "requires": { "min_valuation": 800000 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "claude_board_deck",
+    "character": "claude",
+    "text": "Claude writes the board decks now. Doug says they're the clearest he's ever seen. You haven't read one in months.",
+    "left": { "label": "If it works, it works", "effects": { "morale": 5, "hype": 4 } },
+    "right": { "label": "Start reading them again", "effects": { "morale": 2 } },
+    "requires": { "flags": ["solo", "funded_c"] },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "chad_stadium",
+    "character": "chad",
+    "text": "Naming rights to a stadium. 'The Us Arena'. Twenty million a year. Chad has a rendering. In the rendering, we've already won.",
+    "left": { "label": "Buy the stadium name", "effects": { "cash": -1000, "hype": 18 } },
+    "right": { "label": "We are not a stadium company", "effects": { "morale": 3 } },
+    "requires": { "flag": "funded_d" },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "angel_secondary",
+    "character": "angel",
+    "text": "The jib guy is back. His $300K is worth $80M on paper. A growth fund wants his stake. He brought a fruit basket and a pen.",
+    "left": { "label": "Bless the sale", "effects": { "morale": 3, "hype": 4 } },
+    "right": { "label": "Block it. Loyalty test.", "effects": { "morale": -4, "hype": -2 } },
+    "requires": { "flags": ["funded_angel", "funded_d"] },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "mega_acquisition",
+    "character": "doug",
+    "text": "BigCorp is back. $2.5 billion, all cash. The term sheet has a table of contents. The banker calls you 'sir' now.",
+    "left": { "label": "Sell for $2.5B", "effects": { "set_valuation": 2500000 }, "exit": true },
+    "right": { "label": "We ring the bell or nothing", "effects": { "hype": 10, "morale": 4 }, "sets_flag": "going_public" },
+    "requires": { "min_valuation": 1500000, "max_valuation": 4000000, "min_month": 28 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "ipo_mega",
+    "character": "doug",
+    "text": "The roadshow worked. The book is covered. Pricing at $4B. The ticker is four letters and one of them is yours.",
+    "left": { "label": "Price it. Ring the bell.", "effects": { "set_valuation": 4000000 }, "exit": true },
+    "right": { "label": "Hold out for the big number", "effects": { "hype": 8 }, "sets_flag": "held_out" },
+    "requires": { "min_valuation": 2500000, "max_valuation": 5500000, "min_month": 32 },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "ipo_decacorn",
+    "character": "doug",
+    "text": "The bankers are back and the price talk starts with a B. Ten of them. Doug is crying. He says it's allergies. It is not allergies.",
+    "left": { "label": "IPO at $10B", "effects": { "set_valuation": 10000000 }, "exit": true },
+    "right": { "label": "Stay private. Forever. Chaos.", "effects": { "morale": 5, "hype": 5 } },
+    "requires": { "min_valuation": 6000000, "min_month": 34, "min_hype": 40 },
+    "weight": 16,
     "once": true
   }
 ]

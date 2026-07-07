@@ -49,6 +49,12 @@ func current_burn() -> int:
 		burn += 100
 	if flags.has("funded_b"):
 		burn += 250
+	if flags.has("funded_c"):
+		burn += 400
+	if flags.has("funded_d"):
+		burn += 900
+	if flags.has("funded_growth"):
+		burn += 2000
 	if flags.has("day_job"):
 		burn -= 25
 	if flags.has("garage"):
@@ -117,6 +123,11 @@ func submit_score(payout: int) -> void:
 		_save()
 
 static func fmt_money(k: int) -> String:
+	if absi(k) >= 1000000:
+		var b := k / 1000000.0
+		if is_equal_approx(b, roundf(b)):
+			return "$%dB" % int(roundf(b))
+		return "$%.1fB" % b
 	if absi(k) >= 1000:
 		var m := k / 1000.0
 		if is_equal_approx(m, roundf(m)):

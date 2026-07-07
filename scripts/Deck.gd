@@ -79,6 +79,8 @@ func _requires_met(c: Dictionary) -> bool:
 	var s: Dictionary = GameState.stats
 	if GameState.valuation < int(r.get("min_valuation", 0)):
 		return false
+	if GameState.valuation > int(r.get("max_valuation", 0x7FFFFFFFFFFF)):
+		return false
 	if GameState.month < int(r.get("min_month", 0)):
 		return false
 	if GameState.month > int(r.get("max_month", 9999)):
