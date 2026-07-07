@@ -1,0 +1,62 @@
+1. The Game in One Paragraph
+
+Draw a card each month. A character presents a situation; you pick one of two buttons. Choices move your four stats. Cash at zero or Morale at zero = death, with a post-mortem. Survive and grow Valuation to trigger funding cards — take money (cash up, Equity down) or refuse (risky). Your final score is Equity % × Valuation = your payout. Everything the player touches is: card → two buttons → stat deltas → next card.
+
+
+2. Stats (4 visible, top bar like the reference game)
+
+StatStartDeathRole💰 Cash$500K$0 = dead−$50K/month base burn😊 Morale700 = deadteam quits🔥 Hype30—decays −5/month; gates funding cards & valuation growth🧢 Equity90%—only decreases; score multiplier
+
+Valuation is derived, not managed: it ratchets up when funding cards are taken and drifts with Hype. Displayed top-left like the reference. Score = Valuation × Equity.
+
+Month counter advances per card (January, February… like the reference). Reaching Month 36 alive = you exit → payout screen (win). Dying earlier still shows your payout at last valuation (usually $0 — startups are illiquid, that's the joke and the lesson).
+
+
+3. One Card Schema Does Everything
+
+gdscript# Card (Resource or dictionary)
+{
+  "id": "chad_agency",
+  "character": "chad",              # portrait key
+  "text": "We need extra marketing resources for the product launch.",
+  "left":  { "label": "Hire an agency",
+             "effects": {"cash": -100, "hype": +15},
+             "sets_flag": "" , "next_card": "" },
+  "right": { "label": "Use your brain, Chad",
+             "effects": {"morale": -10, "hype": +5},
+             "sets_flag": "chad_annoyed", "next_card": "" },
+  "requires": { "min_valuation": 0, "flag": "", "min_month": 0 },
+  "weight": 10,
+  "once": false
+}
+
+How v0.2's systems map onto this single schema — this is the whole trick:
+
+v0.2 systemv0.3 expressionFunding round "boss"A card with requires.min_valuation + high weight when cash < 3 months. Left: "Take $2M for 20%" (cash +2000, equity −20, valuation up). Right: "Keep grinding" (sets flag desperate). Two or three funding cards per tier = different "term sheets."Term sheet trap (option pool etc.)Just a worse-math funding card with confident copy. The joke IS the tooltip.Chain eventssets_flag on one card + requires.flag on another. The lowballed engineer returning is two dictionary fields, zero systems.Crisis eventsCards with requires on stat thresholds (morale < 20, etc. — add max_morale style keys as needed).Equity asks (advisors, key hires)Ordinary cards whose effects include equity: -1. Small numbers, real score damage.Opportunity / viral eventsLow-weight cards, big swings.Acquisition exit rampA card: left = "Sell for $30M" → immediate payout screen; right = "We're going bigger." Push-your-luck in one card.Post-mortem death screenTemplate string + the flags you accumulated: "You died in Month 14. Cause: payroll. Chad was annoyed. Priya warned you twice." Flags double as the story log — free content.Meta-progressionv1 = high score saved to disk (like the reference's 1.039B). If time remains: one unlock — "New Game+: start with Rich Uncle (+$300K, he calls)."
+
+Content target for 4h: 30–40 cards. ~25 general, 5 funding, 5 flagged chains/crises. At ~40 words each that's an hour of writing, and the deck is trivially expandable after the jam.
+
+
+4. Godot Architecture (deliberately boring)
+
+Scenes (3 total):
+
+
+Main.tscn — top bar (stats + month), CardView (portrait, text, two buttons), background
+GameOver.tscn — post-mortem text + payout + "Start Game" (also serves as win screen with different copy)
+Title.tscn — logo, high score, Start (clone the reference layout)
+
+
+Scripts:
+
+
+GameState.gd (autoload): stats dict, month, flags array, high score save (user://save.cfg via ConfigFile)
+Deck.gd: loads cards.json, draw() = filter by requires → weighted pick → pop if once
+Main.gd: apply monthly tick → draw → render → on button press apply effects, check deaths, honor next_card override, advance month
+
+
+Data: one cards.json in the project. No editor tooling, no Resources pipeline — load with JSON.parse_string(FileAccess.get_file_as_string(...)). Easy for you to author, and easy to generate/expand with an LLM later (or point a Haip-style agent at it for balance runs post-jam).
+
+Art: reference-style 64×64 pixel portraits — 6 characters is enough for 40 cards (Chad, Priya the CTO, Doug the VC, Office Manager, The Angel, Your Mom). Solid-color card frames per character like the red/blue in the screenshots. Font: any pixel font, texture_filter = nearest everywhere.
+
+Juice budget (only if time): stat-change flash on the top bar, button press SFX, month-tick tween. Nothing else.

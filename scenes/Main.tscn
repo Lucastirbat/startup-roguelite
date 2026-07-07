@@ -1,0 +1,443 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="BoxValuation"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13, 0.145, 0.18, 1)
+border_width_left = 4
+border_color = Color(0.13, 0.83, 0.93, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BoxMonth"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13, 0.145, 0.18, 1)
+border_width_left = 4
+border_color = Color(0.42, 0.45, 0.5, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BoxCash"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13, 0.145, 0.18, 1)
+border_width_left = 4
+border_color = Color(0.18, 0.8, 0.44, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BoxMorale"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13, 0.145, 0.18, 1)
+border_width_left = 4
+border_color = Color(0.93, 0.29, 0.6, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BoxHype"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13, 0.145, 0.18, 1)
+border_width_left = 4
+border_color = Color(0.91, 0.42, 0.09, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BoxEquity"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13, 0.145, 0.18, 1)
+border_width_left = 4
+border_color = Color(0.95, 0.77, 0.06, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BtnLeftNormal"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.16, 0.19, 0.27, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23, 0.38, 0.65, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BtnLeftHover"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.19, 0.24, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.36, 0.56, 0.96, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BtnRightNormal"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.24, 0.16, 0.17, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.28, 0.28, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="BtnRightHover"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.31, 0.19, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.94, 0.36, 0.36, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09, 0.1, 0.13, 1)
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="TopRow" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ValuationBox" type="PanelContainer" parent="Margin/VBox/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("BoxValuation")
+
+[node name="ValuationVBox" type="VBoxContainer" parent="Margin/VBox/TopRow/ValuationBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ValuationCaption" type="Label" parent="Margin/VBox/TopRow/ValuationBox/ValuationVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+text = "VALUATION"
+
+[node name="ValuationLabel" type="Label" parent="Margin/VBox/TopRow/ValuationBox/ValuationVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "$100K"
+
+[node name="TopSpacer" type="Control" parent="Margin/VBox/TopRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MonthBox" type="PanelContainer" parent="Margin/VBox/TopRow"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("BoxMonth")
+
+[node name="MonthLabel" type="Label" parent="Margin/VBox/TopRow/MonthBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 2
+vertical_alignment = 1
+text = "January, Year 1"
+
+[node name="StatsRow" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CashBox" type="PanelContainer" parent="Margin/VBox/StatsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("BoxCash")
+
+[node name="CashVBox" type="VBoxContainer" parent="Margin/VBox/StatsRow/CashBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="CashCaption" type="Label" parent="Margin/VBox/StatsRow/CashBox/CashVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "CASH"
+
+[node name="CashLabel" type="Label" parent="Margin/VBox/StatsRow/CashBox/CashVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+text = "$200K"
+
+[node name="MoraleBox" type="PanelContainer" parent="Margin/VBox/StatsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("BoxMorale")
+
+[node name="MoraleVBox" type="VBoxContainer" parent="Margin/VBox/StatsRow/MoraleBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MoraleCaption" type="Label" parent="Margin/VBox/StatsRow/MoraleBox/MoraleVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "MORALE"
+
+[node name="MoraleLabel" type="Label" parent="Margin/VBox/StatsRow/MoraleBox/MoraleVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+text = "60"
+
+[node name="HypeBox" type="PanelContainer" parent="Margin/VBox/StatsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("BoxHype")
+
+[node name="HypeVBox" type="VBoxContainer" parent="Margin/VBox/StatsRow/HypeBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HypeCaption" type="Label" parent="Margin/VBox/StatsRow/HypeBox/HypeVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "HYPE"
+
+[node name="HypeLabel" type="Label" parent="Margin/VBox/StatsRow/HypeBox/HypeVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+text = "5"
+
+[node name="EquityBox" type="PanelContainer" parent="Margin/VBox/StatsRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("BoxEquity")
+
+[node name="EquityVBox" type="VBoxContainer" parent="Margin/VBox/StatsRow/EquityBox"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="EquityCaption" type="Label" parent="Margin/VBox/StatsRow/EquityBox/EquityVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.65, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "EQUITY"
+
+[node name="EquityLabel" type="Label" parent="Margin/VBox/StatsRow/EquityBox/EquityVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+text = "100%"
+
+[node name="Spacer1" type="Control" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PortraitCenter" type="CenterContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="PortraitPanel" type="Panel" parent="Margin/VBox/PortraitCenter"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 160)
+layout_mode = 2
+
+[node name="PortraitTexture" type="TextureRect" parent="Margin/VBox/PortraitCenter/PortraitPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PortraitLabel" type="Label" parent="Margin/VBox/PortraitCenter/PortraitPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 72
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "?"
+
+[node name="NameLabel" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+text = "Someone"
+
+[node name="CardText" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+text = "..."
+
+[node name="Spacer2" type="Control" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ButtonRow" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LeftButton" type="Button" parent="Margin/VBox/ButtonRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("BtnLeftNormal")
+theme_override_styles/hover = SubResource("BtnLeftHover")
+text = "Left"
+autowrap_mode = 3
+clip_text = true
+
+[node name="RightButton" type="Button" parent="Margin/VBox/ButtonRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("BtnRightNormal")
+theme_override_styles/hover = SubResource("BtnRightHover")
+text = "Right"
+autowrap_mode = 3
+clip_text = true

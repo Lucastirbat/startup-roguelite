@@ -1,0 +1,1228 @@
+[
+  {
+    "id": "origin_cofounder",
+    "character": "priya",
+    "text": "Priya's in — if you split the company. A co-founder halves the loneliness. Also the cap table.",
+    "left": { "label": "Co-found with Priya: 65/35", "effects": { "equity": -35, "morale": 15 }, "sets_flag": "has_cofounder", "next_card": "origin_money" },
+    "right": { "label": "Go solo. All gas, all equity.", "effects": { "morale": -5 }, "sets_flag": "solo", "next_card": "origin_claude" },
+    "requires": { "max_month": 1 },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "origin_claude",
+    "character": "claude",
+    "text": "No co-founder, then. Just you and a Claude subscription. It says it's 'genuinely excited' about your idea. It says that about everything.",
+    "left": { "label": "Best $200/month I ever spent", "effects": { "morale": 8, "hype": 2 }, "next_card": "origin_money" },
+    "right": { "label": "It's fancy autocomplete and we both know it", "effects": { "morale": 3 }, "next_card": "origin_money" },
+    "requires": { "max_month": 1 },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "origin_money",
+    "character": "mom",
+    "text": "So how does this get paid for, exactly? Your mother is asking for a friend. The friend is her.",
+    "left": { "label": "Empty the savings account", "effects": { "cash": 50, "morale": -5 }, "next_card": "origin_office" },
+    "right": { "label": "Keep the day job, build at night", "effects": { "morale": -5, "hype": -2 }, "sets_flag": "day_job", "next_card": "origin_office" },
+    "requires": { "max_month": 1 },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "origin_office",
+    "character": "linda",
+    "text": "Headquarters options: your garage, or a coworking space with 'community energy' and a ping-pong tax.",
+    "left": { "label": "The garage. Free. Cold.", "effects": { "morale": -3 }, "sets_flag": "garage", "next_card": "origin_launch" },
+    "right": { "label": "Coworking hot desks", "effects": { "cash": -20, "morale": 5 }, "next_card": "origin_launch" },
+    "requires": { "max_month": 1 },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "origin_launch",
+    "character": "chad",
+    "text": "How do we enter the world? I vote loud. I always vote loud.",
+    "left": { "label": "Big Product Hunt launch", "effects": { "hype": 18 } },
+    "right": { "label": "Stealth mode. Build first.", "effects": { "morale": 8 } },
+    "requires": { "max_month": 1 },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "office_upgrade",
+    "character": "linda",
+    "text": "The garage has reached capacity. Also, technically, it's your mom's, and she wants to park there again.",
+    "left": { "label": "Rent a real office", "effects": { "cash": -30, "morale": 8 }, "clears_flag": "garage" },
+    "right": { "label": "The garage builds character", "effects": { "morale": -4 } },
+    "requires": { "flag": "garage", "min_month": 6 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "cofounder_fight",
+    "character": "priya",
+    "text": "You and your co-founder disagree on the roadmap. Loudly. In front of everyone. People are wearing headphones that aren't plugged in.",
+    "left": { "label": "Cede the point", "effects": { "morale": 5, "hype": -3 } },
+    "right": { "label": "Pull rank: it's 65/35", "effects": { "morale": -10 }, "sets_flag": "cofounder_rift" },
+    "requires": { "flag": "has_cofounder" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "cofounder_support",
+    "character": "priya",
+    "text": "You hit a wall. Your co-founder notices, closes the laptop, and drags you out for the good burritos.",
+    "left": { "label": "Talk it all out", "effects": { "morale": 15 } },
+    "right": { "label": "Eat in silence, together", "effects": { "morale": 8 } },
+    "requires": { "flag": "has_cofounder", "max_morale": 30 },
+    "weight": 16,
+    "once": true
+  },
+  {
+    "id": "cofounder_buyout",
+    "character": "priya",
+    "text": "The rift didn't heal. Priya offers a clean split: buy her out, or fix this like adults, in therapy. Founder therapy. It's a thing.",
+    "left": { "label": "Buy her out", "effects": { "cash": -150, "equity": 20, "morale": -5 }, "sets_flag": "priya_gone" },
+    "right": { "label": "Founder therapy", "effects": { "cash": -10, "morale": 8 }, "clears_flag": "cofounder_rift" },
+    "requires": { "flag": "cofounder_rift" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "vc_tourist",
+    "character": "doug",
+    "text": "'We don't fund tourists,' Doug says, eyeing your work badge from the day job. 'Founders jump. Tourists visit.'",
+    "left": { "label": "Quit the day job", "effects": { "morale": 8 }, "clears_flag": "day_job" },
+    "right": { "label": "Health insurance is nice, Doug", "effects": { "hype": -6 } },
+    "requires": { "flag": "day_job", "min_month": 4 },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "linda_leanops",
+    "character": "linda",
+    "text": "I audited our spending. We pay for 14 SaaS tools, 3 do the same thing, and the kombucha nobody drinks anymore.",
+    "left": { "label": "Cut it all. Lean ops.", "effects": { "morale": -3 }, "sets_flag": "lean_ops" },
+    "right": { "label": "Keep the perks", "effects": { "morale": 3 } },
+    "requires": { "min_month": 5 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "priya_infra_diet",
+    "character": "priya",
+    "text": "I can halve the cloud bill: reserved instances, and we delete the staging environment named 'staging-final-2'. Nobody knows what it does.",
+    "left": { "label": "Do it", "effects": { "cash": -20 }, "sets_flag": "lean_infra" },
+    "right": { "label": "Too risky mid-quarter", "effects": { "morale": 2 } },
+    "requires": { "min_month": 5 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "chad_agency",
+    "character": "chad",
+    "text": "We need extra marketing resources for the product launch.",
+    "left": { "label": "Hire an agency", "effects": { "cash": -100, "hype": 15 } },
+    "right": { "label": "Use your brain, Chad", "effects": { "morale": -10, "hype": 5 }, "sets_flag": "chad_annoyed" },
+    "weight": 10
+  },
+  {
+    "id": "chad_billboard",
+    "character": "chad",
+    "text": "A billboard on the 101. Every serious startup has one. It's basically free money.",
+    "left": { "label": "Buy the billboard", "effects": { "cash": -80, "hype": 12 } },
+    "right": { "label": "We are not 'every serious startup'", "effects": { "morale": -4, "hype": -2 } },
+    "weight": 10
+  },
+  {
+    "id": "chad_influencer",
+    "character": "chad",
+    "text": "There's a productivity influencer with 2M followers. For $40K he'll call us 'a game changer'.",
+    "left": { "label": "Pay the man", "effects": { "cash": -40, "hype": 12 } },
+    "right": { "label": "Hard pass", "effects": { "hype": -3 } },
+    "weight": 10
+  },
+  {
+    "id": "chad_rebrand",
+    "character": "chad",
+    "text": "The brand feels stale. I'm thinking: same product, but the logo is a gradient now.",
+    "left": { "label": "Approve the rebrand", "effects": { "cash": -60, "hype": 8 } },
+    "right": { "label": "The logo is fine", "effects": { "morale": 5 } },
+    "weight": 8
+  },
+  {
+    "id": "chad_podcast",
+    "character": "chad",
+    "text": "I'm launching a company podcast. Working title: 'Growth Mindset with Chad'. I need a mic budget.",
+    "left": { "label": "Fund the podcast", "effects": { "cash": -15, "hype": 6, "morale": 3 } },
+    "right": { "label": "Nobody will listen, Chad", "effects": { "morale": -4 } },
+    "weight": 8
+  },
+  {
+    "id": "chad_competitor_drama",
+    "character": "chad",
+    "text": "Our competitor's CEO is having a very public meltdown. I've drafted 17 tweets. Some are art.",
+    "left": { "label": "Post the best one", "effects": { "hype": 10, "morale": -3 } },
+    "right": { "label": "Class means silence", "effects": { "morale": 5 } },
+    "weight": 8
+  },
+  {
+    "id": "chad_payback",
+    "character": "chad",
+    "text": "Chad posted on LinkedIn about 'founders who don't invest in growth'. Everyone knows who he means.",
+    "left": { "label": "Apologize, fund one campaign", "effects": { "cash": -50, "morale": 5, "hype": 5 } },
+    "right": { "label": "Fire Chad", "effects": { "morale": -8, "hype": -3 }, "sets_flag": "fired_chad" },
+    "requires": { "flag": "chad_annoyed" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "no_growth",
+    "character": "linda",
+    "text": "Signups are flat since Chad left. Turns out the cringe LinkedIn posts... worked?",
+    "left": { "label": "Hire a growth consultant", "effects": { "cash": -70, "hype": 10 } },
+    "right": { "label": "Founder-led marketing (you, at 2am)", "effects": { "morale": -5, "hype": 4 } },
+    "requires": { "flag": "fired_chad" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "chad_competitor",
+    "character": "linda",
+    "text": "Chad joined your biggest competitor. His first campaign: 'Time to switch?' It has a billboard.",
+    "left": { "label": "Counter-campaign", "effects": { "cash": -50, "hype": 6 } },
+    "right": { "label": "Ignore him", "effects": { "hype": -8 } },
+    "requires": { "flag": "fired_chad" },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "priya_techdebt",
+    "character": "priya",
+    "text": "The codebase is held together with duct tape and one cron job nobody understands. I need a month to refactor.",
+    "left": { "label": "Take the month", "effects": { "hype": -8, "morale": 10 }, "sets_flag": "paid_debt" },
+    "right": { "label": "Ship features instead", "effects": { "morale": -8 }, "sets_flag": "tech_debt" },
+    "requires": { "min_month": 4 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "priya_outage",
+    "character": "priya",
+    "text": "Everything is down. The cron job woke up. I warned you about this.",
+    "left": { "label": "All hands on deck", "effects": { "cash": -80, "morale": -10, "hype": -10 } },
+    "right": { "label": "Blame AWS publicly", "effects": { "morale": -15, "hype": -5 }, "sets_flag": "blamed_aws" },
+    "requires": { "flag": "tech_debt" },
+    "weight": 16,
+    "once": true
+  },
+  {
+    "id": "aws_bill",
+    "character": "linda",
+    "text": "The AWS rep called. Your 'blame AWS' post went around their office. Our startup discount is mysteriously gone.",
+    "left": { "label": "Eat the bigger bill", "effects": { "cash": -40 } },
+    "right": { "label": "Migrate clouds out of spite", "effects": { "cash": -20, "morale": -8, "hype": -4 } },
+    "requires": { "flag": "blamed_aws" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "priya_hire",
+    "character": "priya",
+    "text": "Found a brilliant engineer. She wants market salary. Actual market, not 'startup market'.",
+    "left": { "label": "Pay market rate", "effects": { "cash": -60, "morale": 8 } },
+    "right": { "label": "Lowball with 'equity upside'", "effects": { "morale": -3 }, "sets_flag": "lowballed_dev" },
+    "requires": { "min_month": 5 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "dev_leaves",
+    "character": "priya",
+    "text": "She took the FAANG offer. The team saw the salary she posted. They're doing math.",
+    "left": { "label": "Counter with double", "effects": { "cash": -90, "morale": 5 } },
+    "right": { "label": "Let her go", "effects": { "morale": -12 } },
+    "requires": { "flag": "lowballed_dev" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "priya_burnout",
+    "character": "priya",
+    "text": "I haven't slept since the demo. I can see the code when I close my eyes. It's mostly red.",
+    "left": { "label": "Forced vacation, now", "effects": { "morale": 10, "hype": -4 } },
+    "right": { "label": "One more sprint", "effects": { "morale": -10 }, "sets_flag": "priya_burned" },
+    "requires": { "min_month": 5 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "priya_quits",
+    "character": "priya",
+    "text": "I'm resigning. My therapist and my rubber duck both agree.",
+    "left": { "label": "Beg. Offer equity.", "effects": { "equity": -5, "morale": 5 }, "sets_flag": "priya_stayed" },
+    "right": { "label": "Accept it", "effects": { "morale": -18, "hype": -8 }, "sets_flag": "priya_gone" },
+    "requires": { "flag": "priya_burned" },
+    "weight": 16,
+    "once": true
+  },
+  {
+    "id": "priya_fourday",
+    "character": "priya",
+    "text": "My condition for staying: four-day week for engineering. Tech Twitter found out and has opinions.",
+    "left": { "label": "Defend it publicly", "effects": { "morale": 8, "hype": 4 } },
+    "right": { "label": "Allow it, quietly", "effects": { "morale": 4 } },
+    "requires": { "flag": "priya_stayed" },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "no_cto_outage",
+    "character": "linda",
+    "text": "Production is down. The only person who understood the deploy script left. The script's comments are in emoji.",
+    "left": { "label": "Emergency contractor", "effects": { "cash": -60, "hype": -5 } },
+    "right": { "label": "Debug it yourself", "effects": { "morale": -8, "hype": -8 } },
+    "requires": { "flag": "priya_gone" },
+    "weight": 15,
+    "once": true
+  },
+  {
+    "id": "new_cto",
+    "character": "doug",
+    "text": "I know a 'rockstar CTO' who's available. Rockstar prices, rockstar equity, rockstar keynote habit.",
+    "left": { "label": "Hire the rockstar", "effects": { "cash": -80, "equity": -2, "morale": 8 }, "sets_flag": "new_cto" },
+    "right": { "label": "Promote the intern", "effects": { "morale": -5 }, "sets_flag": "intern_cto" },
+    "requires": { "flag": "priya_gone" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "intern_cto_prod",
+    "character": "linda",
+    "text": "The intern-CTO ran a 'quick cleanup script' on production. We now have zero users. In the database sense.",
+    "left": { "label": "Pay for data recovery", "effects": { "cash": -50, "morale": -5 } },
+    "right": { "label": "'Fresh start' announcement", "effects": { "hype": -12, "morale": -3 } },
+    "requires": { "flag": "intern_cto" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "priya_pivot",
+    "character": "priya",
+    "text": "Data says users ignore the product and only use the screenshot tool we built in a weekend.",
+    "left": { "label": "Pivot to screenshots", "effects": { "hype": 10, "morale": -10 }, "sets_flag": "pivoted" },
+    "right": { "label": "Stay the course", "effects": { "morale": 5 } },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "pivot_press",
+    "character": "chad",
+    "text": "Press loves the pivot story. 'The Screenshot Company' is trending. Our old customers are... confused.",
+    "left": { "label": "Rebrand fully, burn the boats", "effects": { "cash": -40, "hype": 15 } },
+    "right": { "label": "Keep the old product on life support", "effects": { "morale": -8, "hype": 4 } },
+    "requires": { "flag": "pivoted" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "priya_hackathon",
+    "character": "priya",
+    "text": "Internal hackathon? Two days, no meetings, pizza budget. The team needs a win.",
+    "left": { "label": "Ship it", "effects": { "cash": -10, "morale": 12, "hype": 4 } },
+    "right": { "label": "We have a roadmap", "effects": { "morale": -6 } },
+    "weight": 8
+  },
+  {
+    "id": "priya_db",
+    "character": "priya",
+    "text": "We've outgrown the database. Two weeks of migration pain now, or outage roulette forever.",
+    "left": { "label": "Migrate now", "effects": { "morale": -5, "hype": -3 }, "sets_flag": "migrated_db" },
+    "right": { "label": "It'll hold. Probably.", "effects": { "morale": 2 }, "sets_flag": "db_risk" },
+    "requires": { "min_month": 8 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "db_outage",
+    "character": "priya",
+    "text": "The database fell over. During the investor demo. The spinner is still spinning.",
+    "left": { "label": "Emergency weekend fix", "effects": { "cash": -70, "morale": -6 } },
+    "right": { "label": "Restart it and pray", "effects": { "hype": -12, "morale": -5 } },
+    "requires": { "flag": "db_risk" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "priya_breach",
+    "character": "priya",
+    "text": "Someone found our API keys on GitHub. In a repo named 'temp-final-FINAL-2'.",
+    "left": { "label": "Disclose openly, rotate everything", "effects": { "hype": -8, "morale": 5 } },
+    "right": { "label": "Quiet patch, tell no one", "effects": { "hype": -2 }, "sets_flag": "covered_breach" },
+    "requires": { "min_month": 5 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "breach_leak",
+    "character": "chad",
+    "text": "A security researcher found the breach we didn't disclose. Their write-up has 40K upvotes and a meme format.",
+    "left": { "label": "Hire crisis PR", "effects": { "cash": -60, "hype": -8 } },
+    "right": { "label": "Ride it out", "effects": { "hype": -18, "morale": -8 } },
+    "requires": { "flag": "covered_breach" },
+    "weight": 15,
+    "once": true
+  },
+  {
+    "id": "feature_creep",
+    "character": "priya",
+    "text": "Sales promised a client 'AI-powered blockchain analytics'. What we have is a CSV export.",
+    "left": { "label": "Build the thing", "effects": { "cash": -60, "morale": -8 } },
+    "right": { "label": "Walk back the promise", "effects": { "hype": -5 } },
+    "requires": { "min_month": 6 },
+    "weight": 8
+  },
+  {
+    "id": "linda_snacks",
+    "character": "linda",
+    "text": "The team is asking for a kombucha tap. It's $2K a month. I know. I said that too.",
+    "left": { "label": "Approve the tap", "effects": { "cash": -20, "morale": 8 } },
+    "right": { "label": "There's tap water", "effects": { "morale": -5 } },
+    "requires": { "min_month": 5, "not_flags": ["garage", "full_remote"] },
+    "weight": 10
+  },
+  {
+    "id": "linda_rent",
+    "character": "linda",
+    "text": "Landlord is raising rent 40%. He says it's 'the market'. He says that every year.",
+    "left": { "label": "Pay it", "effects": { "cash": -40 } },
+    "right": { "label": "Move somewhere grimmer", "effects": { "cash": -10, "morale": -8 } },
+    "requires": { "min_month": 5, "not_flags": ["garage", "full_remote"] },
+    "weight": 8
+  },
+  {
+    "id": "linda_offsite",
+    "character": "linda",
+    "text": "Team offsite proposal: two days, cabins, trust falls optional. Quotes attached.",
+    "left": { "label": "Book it", "effects": { "cash": -50, "morale": 15 } },
+    "right": { "label": "Zoom happy hour instead", "effects": { "morale": -6 } },
+    "requires": { "min_month": 6 },
+    "weight": 8
+  },
+  {
+    "id": "linda_printer",
+    "character": "linda",
+    "text": "The printer is making a sound I can only describe as 'legal liability'.",
+    "left": { "label": "Buy a new one", "effects": { "cash": -5, "morale": 3 } },
+    "right": { "label": "We're paperless now", "effects": { "morale": -2, "hype": 2 } },
+    "requires": { "not_flags": ["garage", "full_remote"] },
+    "weight": 6
+  },
+  {
+    "id": "linda_remote",
+    "character": "linda",
+    "text": "Half the team wants full remote. The other half wants the office. Everyone wants you to decide by Friday.",
+    "left": { "label": "Full remote, drop the office", "effects": { "cash": 30, "morale": -5 }, "sets_flag": "full_remote" },
+    "right": { "label": "Hybrid compromise", "effects": { "morale": -3 } },
+    "requires": { "min_month": 8, "not_flags": ["garage", "full_remote"] },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "linda_intern",
+    "character": "linda",
+    "text": "200 intern applications. We can afford to pay one, or take five 'for the exposure'.",
+    "left": { "label": "One, paid properly", "effects": { "cash": -15, "morale": 5 } },
+    "right": { "label": "Five, for exposure", "effects": { "morale": -5, "hype": -3 } },
+    "requires": { "min_month": 5 },
+    "weight": 7
+  },
+  {
+    "id": "linda_gdpr",
+    "character": "linda",
+    "text": "A letter from the EU. We are, apparently, 'processing personal data'. The fine has a lot of zeros.",
+    "left": { "label": "Hire a compliance lawyer", "effects": { "cash": -40 } },
+    "right": { "label": "Block Europe", "effects": { "hype": -6 } },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "user_love",
+    "character": "linda",
+    "text": "A user emailed: our product saved their bakery. They attached a photo of a thank-you cake.",
+    "left": { "label": "Read it to the team", "effects": { "morale": 12 } },
+    "right": { "label": "Post it everywhere", "effects": { "hype": 8, "morale": 3 } },
+    "weight": 8
+  },
+  {
+    "id": "mom_call",
+    "character": "mom",
+    "text": "Mom is calling. She wants to know if you're eating and what a 'runway' is.",
+    "left": { "label": "Talk for an hour", "effects": { "morale": 10 } },
+    "right": { "label": "Send to voicemail", "effects": { "morale": -4 } },
+    "weight": 8
+  },
+  {
+    "id": "mom_loan",
+    "character": "mom",
+    "text": "Sweetie, I have $10K saved. Take it. Your father agrees, and he never agrees.",
+    "left": { "label": "Take mom's money", "effects": { "cash": 10, "morale": -8 }, "sets_flag": "took_moms_money" },
+    "right": { "label": "Absolutely not", "effects": { "morale": 5 } },
+    "weight": 6,
+    "once": true
+  },
+  {
+    "id": "mom_investment",
+    "character": "mom",
+    "text": "At Thanksgiving, Mom asks how her 'investment' is doing. Grandma is listening. Grandma remembers everything.",
+    "left": { "label": "Pay her back double", "effects": { "cash": -20, "morale": 10 } },
+    "right": { "label": "'It's an illiquid asset, Mom'", "effects": { "morale": -6 } },
+    "requires": { "flag": "took_moms_money" },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "mom_newspaper",
+    "character": "mom",
+    "text": "Mom laminated the article about your company and gave copies to the whole neighborhood.",
+    "left": { "label": "Call and say thanks", "effects": { "morale": 8 } },
+    "right": { "label": "Die of embarrassment", "effects": { "morale": 2, "hype": 2 } },
+    "requires": { "min_hype": 40 },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "press_interview",
+    "character": "chad",
+    "text": "TechCrunch wants an interview. They asked about our 'AI strategy'. We don't have one.",
+    "left": { "label": "Promise AI everything", "effects": { "hype": 18 }, "sets_flag": "overpromised" },
+    "right": { "label": "Stay honest, stay boring", "effects": { "hype": 4, "morale": 3 } },
+    "requires": { "min_hype": 20 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "overpromised_bill",
+    "character": "priya",
+    "text": "Users are demanding the AI features from that interview. The ones that don't exist.",
+    "left": { "label": "Build them, whatever it costs", "effects": { "cash": -80, "morale": -8 } },
+    "right": { "label": "Quietly delete the interview", "effects": { "hype": -15 } },
+    "requires": { "flag": "overpromised" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "conference_booth",
+    "character": "chad",
+    "text": "TechDisrupt wants $50K for a booth between a juicero revival and a blockchain gym.",
+    "left": { "label": "Sponsor it", "effects": { "cash": -50, "hype": 12 } },
+    "right": { "label": "Skip it", "effects": { "hype": -4 } },
+    "requires": { "min_month": 5 },
+    "weight": 8
+  },
+  {
+    "id": "keynote_invite",
+    "character": "linda",
+    "text": "You're invited to keynote a conference. It's the same week as the product launch. Of course it is.",
+    "left": { "label": "Do the talk", "effects": { "hype": 10, "morale": -4 } },
+    "right": { "label": "Launch comes first", "effects": { "morale": 5, "hype": -3 } },
+    "requires": { "min_hype": 35 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "hit_piece",
+    "character": "linda",
+    "text": "A journalist is writing 'The Dark Side of Your Startup'. They want a comment by Thursday.",
+    "left": { "label": "Full transparency interview", "effects": { "hype": -5, "morale": 5 } },
+    "right": { "label": "No comment", "effects": { "hype": -10 } },
+    "requires": { "min_hype": 40 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "award_gala",
+    "character": "chad",
+    "text": "We're shortlisted for 'Startup of the Year'. Gala tickets are $10K a table. Doug will be there.",
+    "left": { "label": "Buy the table", "effects": { "cash": -10, "hype": 10, "morale": 5 } },
+    "right": { "label": "Awards are vanity", "effects": { "hype": -2 } },
+    "requires": { "min_hype": 50 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "bigco_clone",
+    "character": "priya",
+    "text": "Google just launched a clone of our product. It's worse, but it's free and preinstalled.",
+    "left": { "label": "Defiant tweet thread", "effects": { "hype": 8, "morale": -5 } },
+    "right": { "label": "Heads down, out-execute", "effects": { "morale": 5, "hype": -8 } },
+    "requires": { "min_month": 8 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "viral_moment",
+    "character": "chad",
+    "text": "We're trending. A celebrity used the product on a livestream. This is not a drill.",
+    "left": { "label": "Pour ads on the fire", "effects": { "cash": -60, "hype": 20 } },
+    "right": { "label": "Enjoy it organically", "effects": { "hype": 8 } },
+    "requires": { "min_hype": 55 },
+    "weight": 12
+  },
+  {
+    "id": "ramen_mode",
+    "character": "linda",
+    "text": "Payroll clears in three weeks. After that, vibes. We need to cut something.",
+    "left": { "label": "Layoffs", "effects": { "cash": 80, "morale": -20 }, "sets_flag": "layoffs" },
+    "right": { "label": "Founder salary to $0", "effects": { "cash": 10, "morale": 8 } },
+    "requires": { "max_cash": 120, "min_month": 6 },
+    "weight": 16
+  },
+  {
+    "id": "glassdoor",
+    "character": "linda",
+    "text": "New Glassdoor review: 'Great snacks, sudden layoffs.' It's the first Google result for our name now.",
+    "left": { "label": "Heartfelt public response", "effects": { "hype": 3, "morale": 3 } },
+    "right": { "label": "Report the review", "effects": { "hype": -10, "morale": -5 } },
+    "requires": { "flag": "layoffs" },
+    "weight": 13,
+    "once": true
+  },
+  {
+    "id": "morale_crisis",
+    "character": "linda",
+    "text": "Half the team has LinkedIn open on a second monitor. They stopped hiding it.",
+    "left": { "label": "Emergency equity grants", "effects": { "equity": -3, "morale": 15 } },
+    "right": { "label": "Pizza party", "effects": { "morale": -5 } },
+    "requires": { "max_morale": 25, "min_month": 6 },
+    "weight": 16
+  },
+  {
+    "id": "patent_troll",
+    "character": "doug",
+    "text": "A law firm in Texas claims you infringed their patent on 'displaying information on a screen'. They want $80K.",
+    "left": { "label": "Pay them off", "effects": { "cash": -80 } },
+    "right": { "label": "Fight it", "effects": { "cash": -30, "morale": -5 } },
+    "requires": { "min_month": 8 },
+    "weight": 6,
+    "once": true
+  },
+  {
+    "id": "enterprise_deal",
+    "character": "doug",
+    "text": "An enterprise client offers $150K — if you build their custom SSO-SAML-LDAP dashboard by Q3.",
+    "left": { "label": "Take the contract", "effects": { "cash": 150, "morale": -10 } },
+    "right": { "label": "Stay product-focused", "effects": { "morale": 5, "hype": -3 } },
+    "requires": { "min_month": 8 },
+    "weight": 8
+  },
+  {
+    "id": "advisor_equity",
+    "character": "angel",
+    "text": "A famous advisor offers to 'open doors' for 2% equity. The doors are not specified.",
+    "left": { "label": "Grant the 2%", "effects": { "equity": -2, "hype": 10 } },
+    "right": { "label": "Doors stay closed", "effects": { "hype": -2 } },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "crypto_guy",
+    "character": "angel",
+    "text": "An investor wants in — if you 'put the roadmap on-chain'. He says 'ser' unironically.",
+    "left": { "label": "Take the weird money", "effects": { "cash": 100, "equity": -3, "hype": 5, "morale": -8 }, "sets_flag": "crypto_money" },
+    "right": { "label": "Politely decline, ser", "effects": { "morale": 5 } },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "crypto_fallout",
+    "character": "linda",
+    "text": "Your crypto investor got indicted. His tweets tagging us are Exhibit C.",
+    "left": { "label": "Return the money publicly", "effects": { "cash": -100, "hype": 5, "morale": 5 } },
+    "right": { "label": "'We can't comment'", "effects": { "hype": -12 } },
+    "requires": { "flag": "crypto_money" },
+    "weight": 13,
+    "once": true
+  },
+  {
+    "id": "doug_coffee",
+    "character": "doug",
+    "text": "Doug wants to grab coffee. 'No agenda,' he says, opening a notebook titled 'Agenda'.",
+    "left": { "label": "Share the roadmap", "effects": { "hype": 8, "morale": -3 } },
+    "right": { "label": "Talk about the weather", "effects": { "hype": -2, "morale": 3 } },
+    "weight": 8
+  },
+  {
+    "id": "board_growth",
+    "character": "doug",
+    "text": "First board meeting. Doug wants 'T2D3 with negative churn'. You nod and write down letters.",
+    "left": { "label": "Promise aggressive growth", "effects": { "hype": 8, "morale": -6 } },
+    "right": { "label": "Set realistic targets", "effects": { "morale": 4, "hype": -4 } },
+    "requires": { "flag": "funded_a" },
+    "weight": 12
+  },
+  {
+    "id": "board_cfo",
+    "character": "doug",
+    "text": "The board wants a 'grown-up CFO'. The phrase 'adult supervision' was used. About you.",
+    "left": { "label": "Hire the CFO", "effects": { "cash": -50, "morale": 3 } },
+    "right": { "label": "I AM the adult", "effects": { "morale": -3 }, "sets_flag": "board_tension" },
+    "requires": { "flag": "funded_a" },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "board_coup",
+    "character": "doug",
+    "text": "Doug called the other investors. There was a 'vote of confidence'. About you. You weren't invited.",
+    "left": { "label": "Fight for control", "effects": { "equity": -4, "morale": 5 } },
+    "right": { "label": "Accept a COO 'partner'", "effects": { "morale": -8 } },
+    "requires": { "flag": "board_tension" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "option_pool_bill",
+    "character": "linda",
+    "text": "Legal says new hires' options come out of YOUR shares. It was in the paragraph. The one nobody reads.",
+    "left": { "label": "Honor the grants", "effects": { "equity": -4, "morale": 5 } },
+    "right": { "label": "Shrink the grants", "effects": { "morale": -10 } },
+    "requires": { "flag": "option_pooled" },
+    "weight": 13,
+    "once": true
+  },
+  {
+    "id": "fund_angel",
+    "character": "angel",
+    "text": "I like the cut of your jib. $300K for 10%. I also said 'jib' to the last twelve founders.",
+    "left": { "label": "Take $300K for 10%", "effects": { "cash": 300, "equity": -10, "set_valuation": 3000 }, "sets_flag": "funded_angel", "clears_flag": "day_job" },
+    "right": { "label": "Keep grinding", "effects": { "morale": 3 }, "sets_flag": "desperate" },
+    "requires": { "min_month": 3 },
+    "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_seed",
+    "character": "doug",
+    "text": "Seed round: $1M at a $5M post-money. Clean terms. Well. Clean-ish.",
+    "left": { "label": "Take $1M for 20%", "effects": { "cash": 1000, "equity": -20, "set_valuation": 5000 }, "sets_flag": "funded_seed", "clears_flag": ["day_job", "garage"] },
+    "right": { "label": "Keep bootstrapping", "effects": { "morale": 3 }, "sets_flag": "passed_seed" },
+    "requires": { "min_valuation": 2000 },
+    "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_seed_trap",
+    "character": "doug",
+    "text": "Better offer: $1.2M at $5.5M! Standard terms. Don't worry about the option pool paragraph. Nobody reads the option pool paragraph.",
+    "left": { "label": "Take $1.2M, skip the paragraph", "effects": { "cash": 1200, "equity": -32, "set_valuation": 5500 }, "sets_flag": "option_pooled", "clears_flag": ["day_job", "garage"] },
+    "right": { "label": "Read the paragraph", "effects": { "morale": 2, "hype": -2 } },
+    "requires": { "min_valuation": 2000 },
+    "weight": 18,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_series_a",
+    "character": "doug",
+    "text": "Series A: $4M at a $20M post. There will be a board now. The board will have opinions.",
+    "left": { "label": "Take $4M for 20%", "effects": { "cash": 4000, "equity": -20, "set_valuation": 20000 }, "sets_flag": "funded_a", "clears_flag": ["day_job", "garage"] },
+    "right": { "label": "Not yet", "effects": { "hype": 3 } },
+    "requires": { "min_valuation": 6000 },
+    "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_series_b",
+    "character": "doug",
+    "text": "Series B: $10M at a $60M post. You now employ someone whose whole job is buying chairs.",
+    "left": { "label": "Take $10M for 15%", "effects": { "cash": 10000, "equity": -15, "set_valuation": 60000 }, "sets_flag": "funded_b" },
+    "right": { "label": "We're fine on cash", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 25000 },
+    "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "desperate_bridge",
+    "character": "angel",
+    "text": "Word is you're running on fumes. Bridge round: $200K for 8%. Fumes are expensive.",
+    "left": { "label": "Take the bridge", "effects": { "cash": 200, "equity": -8 } },
+    "right": { "label": "Fumes are fine", "effects": { "morale": -5 } },
+    "requires": { "flag": "desperate", "max_cash": 150 },
+    "weight": 18,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "acquihire_lowball",
+    "character": "doug",
+    "text": "A competitor offers a $2M acquihire. 'It's a good outcome,' they say. They say it twice.",
+    "left": { "label": "Take the soft landing", "effects": { "set_valuation": 2000 }, "exit": true },
+    "right": { "label": "We die on our feet", "effects": { "morale": 5, "hype": 3 } },
+    "requires": { "flag": "desperate", "min_month": 12 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "acquisition",
+    "character": "doug",
+    "text": "BigCorp offers $30M cash for the company. All of it. Signed by Friday.",
+    "left": { "label": "Sell for $30M", "effects": { "set_valuation": 30000 }, "exit": true },
+    "right": { "label": "We're going bigger", "effects": { "hype": 12, "morale": 5 }, "sets_flag": "went_bigger" },
+    "requires": { "min_valuation": 15000, "min_month": 15 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "acquisition_bigger",
+    "character": "doug",
+    "text": "BigCorp came back. $45M this time. The banker says 'final offer' in a tone that means it.",
+    "left": { "label": "Sell for $45M", "effects": { "set_valuation": 45000 }, "exit": true },
+    "right": { "label": "IPO or bust", "effects": { "hype": 10, "morale": -5 } },
+    "requires": { "flag": "went_bigger", "min_valuation": 20000 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "strategic_acquirer",
+    "character": "doug",
+    "text": "A strategic acquirer offers $8M. 'Your team would love our campus. We have four cafeterias.'",
+    "left": { "label": "Take the $8M", "effects": { "set_valuation": 8000 }, "exit": true },
+    "right": { "label": "We have a microwave and a dream", "effects": { "morale": 6, "hype": 3 } },
+    "requires": { "min_valuation": 5000, "min_month": 12 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "ipo",
+    "character": "doug",
+    "text": "The bankers are here. NASDAQ. Ticker symbol picked. You'd ring an actual bell.",
+    "left": { "label": "Ring the bell", "effects": { "set_valuation": 90000 }, "exit": true },
+    "right": { "label": "Stay private, stay free", "effects": { "hype": 8, "morale": 5 } },
+    "requires": { "min_valuation": 50000, "min_month": 30 },
+    "weight": 16,
+    "once": true
+  },
+  {
+    "id": "elon_buys",
+    "character": "angel",
+    "text": "A billionaire tweeted 'I should buy this' about your company at 3am. His lawyers confirmed he's serious. Ish.",
+    "left": { "label": "Sell for $50M before he sobers up", "effects": { "set_valuation": 50000 }, "exit": true },
+    "right": { "label": "Reply with a meme", "effects": { "hype": 15 } },
+    "requires": { "min_hype": 70, "min_valuation": 15000 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "pe_firm",
+    "character": "doug",
+    "text": "A private equity firm offers $12M. They use the word 'streamline' four times. Your team's faces fall.",
+    "left": { "label": "Take the $12M", "effects": { "set_valuation": 12000 }, "exit": true },
+    "right": { "label": "Not like this", "effects": { "morale": 8 } },
+    "requires": { "min_valuation": 8000, "min_month": 24 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "spac",
+    "character": "doug",
+    "text": "A SPAC named after a Greek god wants to take you public. Their last three deals are down 90%. But the god is Zeus.",
+    "left": { "label": "Merge with Zeus", "effects": { "set_valuation": 25000 }, "exit": true },
+    "right": { "label": "SPACs are astrology for MBAs", "effects": { "morale": 3 } },
+    "requires": { "flag": "funded_a", "min_month": 20 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "chad_growth_hack",
+    "character": "chad",
+    "text": "I found a guy who can get us 50K users overnight. Don't ask how. Seriously, don't ask.",
+    "left": { "label": "Don't ask", "effects": { "hype": 15 }, "sets_flag": "fake_users" },
+    "right": { "label": "Ask", "effects": { "hype": -2, "morale": 3 } },
+    "requires": { "min_month": 4 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "dd_fake_users",
+    "character": "doug",
+    "text": "Due diligence found that 40% of your users are named 'user_test_final2' and log in from the same IP.",
+    "left": { "label": "Settle quietly, purge the bots", "effects": { "cash": -50, "hype": -5 } },
+    "right": { "label": "'Power users share devices'", "effects": { "hype": -15, "morale": -5 } },
+    "requires": { "flag": "fake_users" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "chad_superbowl",
+    "character": "chad",
+    "text": "Super Bowl ad slot. Thirty seconds. We have Series A money now. Think BIG.",
+    "left": { "label": "Book the slot", "effects": { "cash": -500, "hype": 30 } },
+    "right": { "label": "We are not a beer brand", "effects": { "morale": -3 } },
+    "requires": { "flag": "funded_a" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "chad_meme",
+    "character": "chad",
+    "text": "The brand account should be unhinged now. All the big brands are unhinged. It's called relatability.",
+    "left": { "label": "Unleash the intern", "effects": { "hype": 8, "morale": 3 } },
+    "right": { "label": "Stay professional", "effects": { "hype": -3 } },
+    "weight": 8
+  },
+  {
+    "id": "chad_swag",
+    "character": "chad",
+    "text": "Merch drop: hoodies with the logo. Employees get one free. Everyone else pays $80. For our logo.",
+    "left": { "label": "Print the hoodies", "effects": { "cash": -15, "morale": 6, "hype": 3 } },
+    "right": { "label": "We sell software", "effects": { "morale": -2 } },
+    "weight": 7
+  },
+  {
+    "id": "chad_tiktok",
+    "character": "chad",
+    "text": "We need a TikTok. I've been practicing a dance. It's called 'The Burn Rate'. I will not be stopped.",
+    "left": { "label": "Post the dance", "effects": { "hype": 10, "morale": -4 } },
+    "right": { "label": "Stop him physically", "effects": { "morale": 4 } },
+    "weight": 8
+  },
+  {
+    "id": "priya_rewrite",
+    "character": "priya",
+    "text": "Proposal: rewrite everything in Rust. It'll take four months and fix problems we don't technically have yet.",
+    "left": { "label": "Approve the rewrite", "effects": { "morale": 8, "hype": -6 } },
+    "right": { "label": "The PHP stays", "effects": { "morale": -5, "hype": 2 } },
+    "requires": { "min_month": 8 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "priya_oncall",
+    "character": "priya",
+    "text": "The on-call rotation is me, myself, and my other phone. I need at least one more person carrying a pager.",
+    "left": { "label": "Hire an SRE", "effects": { "cash": -50, "morale": 8 } },
+    "right": { "label": "The app rarely crashes at night", "effects": { "morale": -7 } },
+    "requires": { "min_month": 6 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "priya_opensource",
+    "character": "priya",
+    "text": "Let's open-source the core engine. Free contributors, community love, conference talks.",
+    "left": { "label": "Open it up", "effects": { "hype": 10, "morale": 6 }, "sets_flag": "open_sourced" },
+    "right": { "label": "Our moat stays closed", "effects": { "morale": -3 } },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "opensource_fork",
+    "character": "priya",
+    "text": "A cloud giant forked our open-source engine and launched it as a managed service. They sent a fruit basket.",
+    "left": { "label": "Change the license, start a war", "effects": { "hype": 8, "morale": -5 } },
+    "right": { "label": "Eat the fruit. Out-innovate.", "effects": { "morale": 5, "hype": -6 } },
+    "requires": { "flag": "open_sourced" },
+    "weight": 13,
+    "once": true
+  },
+  {
+    "id": "priya_ai",
+    "character": "priya",
+    "text": "Every competitor added a chatbot. Ours would cost $30K a month in API calls to mostly apologize.",
+    "left": { "label": "Ship the chatbot", "effects": { "cash": -30, "hype": 10 } },
+    "right": { "label": "No apology bot", "effects": { "hype": -5 } },
+    "requires": { "min_month": 6 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "linda_lawsuit",
+    "character": "linda",
+    "text": "An ex-employee is suing over the 'unlimited vacation' policy. Their lawyer found the Slack message. You know the one.",
+    "left": { "label": "Settle", "effects": { "cash": -60 } },
+    "right": { "label": "Go to court", "effects": { "cash": -25, "hype": -6, "morale": -4 } },
+    "requires": { "min_month": 10 },
+    "weight": 6,
+    "once": true
+  },
+  {
+    "id": "linda_dog",
+    "character": "linda",
+    "text": "Someone brought a dog. Productivity is down 30%. Happiness is up immeasurably. The dog's name is Sprint.",
+    "left": { "label": "Sprint stays", "effects": { "morale": 10, "hype": 2 } },
+    "right": { "label": "No dogs in the office", "effects": { "morale": -8 } },
+    "requires": { "min_month": 5, "not_flags": ["garage", "full_remote"] },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "linda_culture_deck",
+    "character": "linda",
+    "text": "HR wants a 'culture deck'. 80 slides about our values. Slide 41 is just the word 'HUSTLE' in flames.",
+    "left": { "label": "Publish it proudly", "effects": { "hype": 5, "morale": -4 } },
+    "right": { "label": "Our culture is shipping", "effects": { "morale": 4 } },
+    "requires": { "min_month": 8 },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "linda_audit",
+    "character": "linda",
+    "text": "The accountant found an error. We've been paying for 40 seats of software we've never opened. For a year.",
+    "left": { "label": "Cancel everything unused", "effects": { "cash": 30, "morale": -2 } },
+    "right": { "label": "Might need it someday", "effects": { "cash": -15 } },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "linda_karen",
+    "character": "linda",
+    "text": "A customer is demanding a refund. On the plaza. With a megaphone. Local news is setting up a tripod.",
+    "left": { "label": "Refund + public apology", "effects": { "cash": -10, "hype": 3 } },
+    "right": { "label": "Security escorts the megaphone", "effects": { "hype": -8 } },
+    "requires": { "min_month": 6, "not_flags": ["garage"] },
+    "weight": 6,
+    "once": true
+  },
+  {
+    "id": "mom_visit",
+    "character": "mom",
+    "text": "Mom is visiting the office. She brought food for everyone and is asking Doug if he has 'a real job'.",
+    "left": { "label": "Full office tour", "effects": { "morale": 12 } },
+    "right": { "label": "Meet her in the lobby", "effects": { "morale": -5 } },
+    "requires": { "min_month": 4, "not_flags": ["garage"] },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "mom_linkedin",
+    "character": "mom",
+    "text": "Mom joined LinkedIn. She comments 'So proud!! Call me' on every company post. Investors have noticed.",
+    "left": { "label": "Never change, Mom", "effects": { "morale": 6, "hype": 3 } },
+    "right": { "label": "Teach her about DMs", "effects": { "morale": -3 } },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "doug_metrics",
+    "character": "doug",
+    "text": "Doug wants a real-time metrics dashboard in his office. 'Just the north star KPIs.' He lists fourteen.",
+    "left": { "label": "Build the dashboard", "effects": { "cash": -20, "morale": -5 } },
+    "right": { "label": "You get a monthly email", "effects": { "hype": -3 } },
+    "requires": { "flag": "funded_a" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "doug_recap",
+    "character": "doug",
+    "text": "Doug proposes a 'recapitalization'. The math is confusing on purpose. Your equity is the confusing part.",
+    "left": { "label": "Take the recap money", "effects": { "cash": 300, "equity": -12 } },
+    "right": { "label": "Refuse", "effects": { "morale": -4 } },
+    "requires": { "flag": "desperate", "max_cash": 200 },
+    "weight": 14,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "doug_corpdev",
+    "character": "doug",
+    "text": "Doug wants to introduce you to BigCorp's corp dev team. 'Just to build the relationship.' Sure, Doug.",
+    "left": { "label": "Take the meeting", "effects": { "hype": 6, "morale": -2 } },
+    "right": { "label": "We're not for sale (yet)", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 10000 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "angel_yacht",
+    "character": "angel",
+    "text": "Investor summit on a yacht. Three days of 'networking'. Someone will say 'synergy' at you. Repeatedly.",
+    "left": { "label": "Board the yacht", "effects": { "hype": 8, "morale": -4 } },
+    "right": { "label": "Ship features instead", "effects": { "morale": 4, "hype": -3 } },
+    "weight": 7
+  },
+  {
+    "id": "angel_fengshui",
+    "character": "angel",
+    "text": "My feng shui consultant looked at your office photos. The servers face north. This explains everything, allegedly.",
+    "left": { "label": "Rotate the servers", "effects": { "cash": -5, "morale": 3, "hype": 2 } },
+    "right": { "label": "The servers stay agnostic", "effects": { "morale": 2 } },
+    "weight": 6,
+    "once": true
+  },
+  {
+    "id": "hackernews",
+    "character": "priya",
+    "text": "We're on the Hacker News front page. Comment #1: 'I built this in a weekend.' Comment #2 is worse.",
+    "left": { "label": "Founder responds humbly", "effects": { "hype": 12, "morale": 3 } },
+    "right": { "label": "Never read the comments", "effects": { "hype": 6 } },
+    "requires": { "min_month": 2 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "pricing_change",
+    "character": "linda",
+    "text": "Finance says we lose money on every free user. Marketing says free users are 'the funnel'. Both have charts.",
+    "left": { "label": "Raise prices", "effects": { "cash": 60, "hype": -8 } },
+    "right": { "label": "Growth over margin", "effects": { "cash": -20, "hype": 5 } },
+    "requires": { "min_month": 6 },
+    "weight": 8
+  },
+  {
+    "id": "churn_spike",
+    "character": "linda",
+    "text": "Churn doubled this month. Exit surveys all say the same thing: 'I forgot what this app does.'",
+    "left": { "label": "Win-back email campaign", "effects": { "cash": -25, "hype": 4 } },
+    "right": { "label": "Focus on new users", "effects": { "hype": -6 } },
+    "requires": { "min_month": 12 },
+    "weight": 9
+  },
+  {
+    "id": "competitor_folds",
+    "character": "chad",
+    "text": "Our biggest competitor just shut down. Their users are flooding in. So are their support tickets.",
+    "left": { "label": "Hire their best people", "effects": { "cash": -60, "morale": 8, "hype": 8 } },
+    "right": { "label": "Absorb users, ride it out", "effects": { "hype": 10, "morale": -6 } },
+    "requires": { "min_month": 10 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "free_tier_abuse",
+    "character": "priya",
+    "text": "Someone is mining crypto on our free tier. Their usage graph looks like a hockey stick. The bad kind.",
+    "left": { "label": "Ban and rate-limit", "effects": { "morale": 3, "hype": -2 } },
+    "right": { "label": "Tweet the graph as growth", "effects": { "hype": 9, "morale": -4 } },
+    "requires": { "min_month": 6 },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "claude_techdebt",
+    "character": "claude",
+    "text": "Claude wrote 80% of the codebase. Claude would now like to refactor the codebase. It has prepared a 14-step plan and three apologies.",
+    "left": { "label": "Approve the refactor", "effects": { "hype": -6, "morale": 8 }, "sets_flag": "paid_debt" },
+    "right": { "label": "Ship features, ignore the plan", "effects": { "morale": -5 }, "sets_flag": "tech_debt" },
+    "requires": { "flag": "solo", "min_month": 4 },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "claude_outage",
+    "character": "claude",
+    "text": "Production is down. Claude says you're absolutely right to be frustrated, and that the bug is in the file it wrote. In step 9 of 14.",
+    "left": { "label": "Debug all night together", "effects": { "cash": -30, "morale": -8, "hype": -8 } },
+    "right": { "label": "Blame AWS publicly", "effects": { "morale": -8, "hype": -5 }, "sets_flag": "blamed_aws" },
+    "requires": { "flags": ["solo", "tech_debt"] },
+    "weight": 16,
+    "once": true
+  },
+  {
+    "id": "claude_rate_limit",
+    "character": "claude",
+    "text": "You hit the rate limit at 2am, mid-launch. The message suggests 'taking a break'. From your own product launch.",
+    "left": { "label": "Upgrade to the enterprise tier", "effects": { "cash": -20, "morale": 5 } },
+    "right": { "label": "Touch grass until it resets", "effects": { "morale": 3, "hype": -3 } },
+    "requires": { "flag": "solo", "min_month": 3 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "claude_context",
+    "character": "claude",
+    "text": "The codebase no longer fits in context. Claude keeps rediscovering the payments module and calling it 'interesting'.",
+    "left": { "label": "Pay for the bigger model", "effects": { "cash": -15, "morale": 4 } },
+    "right": { "label": "Write actual documentation", "effects": { "morale": -5, "hype": 2 } },
+    "requires": { "flag": "solo", "min_month": 6 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "claude_agents",
+    "character": "claude",
+    "text": "You left 12 Claude agents running overnight. They shipped nine features, two tests, and one philosophical manifesto about naming variables.",
+    "left": { "label": "Ship all of it, read nothing", "effects": { "hype": 12, "morale": -4 } },
+    "right": { "label": "Review every line", "effects": { "morale": -6, "hype": 3 } },
+    "requires": { "flag": "solo", "min_month": 5 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "claude_refusal",
+    "character": "claude",
+    "text": "Claude declines to write the competitor-scraping bot. It cited the site's terms of service. Your terms of service.",
+    "left": { "label": "Rephrase it as 'hypothetical'", "effects": { "hype": 6, "morale": -4 } },
+    "right": { "label": "Fair enough, honestly", "effects": { "morale": 4 } },
+    "requires": { "flag": "solo", "min_month": 4 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "chatgpt_wrapper",
+    "character": "chad",
+    "text": "A competitor rebuilt our entire product as a ChatGPT wrapper. In a weekend. It has more users than us.",
+    "left": { "label": "Tweet that they're 'just a wrapper'", "effects": { "hype": 8, "morale": -3 } },
+    "right": { "label": "Ship harder, tweet never", "effects": { "morale": 4, "hype": -4 } },
+    "requires": { "min_month": 5 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "perplexity_seo",
+    "character": "chad",
+    "text": "Nobody googles anymore. Perplexity answers questions about our product now — confidently, and wrong. It says we're a pet food brand.",
+    "left": { "label": "Hire an 'AI-SEO' consultant", "effects": { "cash": -30, "hype": 6 } },
+    "right": { "label": "Publish painfully correct docs", "effects": { "morale": 3, "hype": 2 } },
+    "requires": { "min_month": 6 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "ai_story",
+    "character": "doug",
+    "text": "Doug asks what our 'AI story' is. You describe the product. He asks again, slower: what is the A. I. story.",
+    "left": { "label": "Add 'AI-powered' to the homepage", "effects": { "hype": 10, "morale": -5 } },
+    "right": { "label": "'We use it internally'", "effects": { "hype": -4, "morale": 3 } },
+    "requires": { "min_month": 5 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "openai_outage",
+    "character": "linda",
+    "text": "OpenAI is down and half the industry is on Twitter pretending they aren't refreshing the status page. Our product still works.",
+    "left": { "label": "Post a smug uptime screenshot", "effects": { "hype": 10, "morale": 2 } },
+    "right": { "label": "Stay classy", "effects": { "morale": 4 } },
+    "requires": { "min_month": 4 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "intern_chatgpt",
+    "character": "linda",
+    "text": "The intern pasted the entire customer database into ChatGPT to 'clean up the formatting'.",
+    "left": { "label": "Incident report, training, apology", "effects": { "cash": -15, "morale": -3 } },
+    "right": { "label": "That never happened", "effects": { "hype": -2 }, "sets_flag": "covered_breach" },
+    "requires": { "min_month": 5 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "ai_price_hike",
+    "character": "linda",
+    "text": "Every SaaS we use added an AI assistant nobody asked for and doubled their prices to pay for it.",
+    "left": { "label": "Pay the AI tax", "effects": { "cash": -20 } },
+    "right": { "label": "Cancel half our stack", "effects": { "morale": -4 }, "sets_flag": "lean_ops" },
+    "requires": { "min_month": 6 },
+    "weight": 8,
+    "once": true
+  }
+]

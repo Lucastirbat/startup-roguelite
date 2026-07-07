@@ -1,0 +1,11 @@
+.godot
+.git
+assets
+scenes
+scripts
+data
+*.tscn
+*.gd
+*.tres
+GDD.txt
+icon.svg
