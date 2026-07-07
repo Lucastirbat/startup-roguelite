@@ -1509,6 +1509,206 @@
     "once": true
   },
   {
+    "id": "dotai_domain",
+    "character": "chad",
+    "text": "Investors keep asking why we're a .com. Chad found the .ai domain. It's owned by a squatter in Anguilla with strong opinions.",
+    "left": { "label": "Pay the squatter", "effects": { "cash": -15, "hype": 6 } },
+    "right": { "label": ".com has dignity", "effects": { "morale": 3, "hype": -2 } },
+    "requires": { "min_month": 2 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "vibe_coding",
+    "character": "priya",
+    "text": "The new hire 'vibe codes'. Ships features in hours. Cannot explain a single line. His commit messages are just the shrug emoji.",
+    "left": { "label": "Let him cook", "effects": { "morale": 4, "hype": 3 }, "sets_flag": "vibe_coder" },
+    "right": { "label": "Mandatory code review", "effects": { "morale": -3 } },
+    "requires": { "min_month": 4 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "vibe_debt",
+    "character": "priya",
+    "text": "The vibe-coded checkout flow charges some users twice and sends others a poem. Nobody knows why. The AI that wrote it says it's 'a great question'.",
+    "left": { "label": "Human rewrite, line by line", "effects": { "cash": -40, "morale": -4 } },
+    "right": { "label": "Refund and patch around it", "effects": { "cash": -25, "hype": -4 } },
+    "requires": { "flag": "vibe_coder" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "mom_chatgpt",
+    "character": "mom",
+    "text": "Mom uses ChatGPT now. She asked it about your company. It said 'promising but unprofitable'. She printed it out. She brought the printout.",
+    "left": { "label": "Explain hallucinations at dinner", "effects": { "morale": 4 } },
+    "right": { "label": "'The AI is right, Mom'", "effects": { "morale": -3, "hype": 2 } },
+    "requires": { "min_month": 3 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "ai_support_bot",
+    "character": "linda",
+    "text": "Support tickets doubled. We can hire two humans, or deploy a bot that answers instantly, warmly, and occasionally in Portuguese.",
+    "left": { "label": "Deploy the bot", "effects": { "cash": 30, "hype": -3 }, "sets_flag": "support_bot" },
+    "right": { "label": "Hire the humans", "effects": { "cash": -30, "morale": 5 } },
+    "requires": { "min_month": 5 },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "support_bot_promise",
+    "character": "linda",
+    "text": "The support bot promised a customer free service for life. In writing. A lawyer says chatbot promises are binding now. There's precedent. An airline.",
+    "left": { "label": "Honor it, tweet the story", "effects": { "cash": -15, "hype": 8 } },
+    "right": { "label": "Fight our own chatbot in court", "effects": { "cash": -30, "hype": -8 } },
+    "requires": { "flag": "support_bot" },
+    "weight": 13,
+    "once": true
+  },
+  {
+    "id": "agent_loop_bill",
+    "character": "priya",
+    "text": "An agent got stuck in a loop overnight. It spent $40K apologizing to itself, accepting its own apology, and apologizing for that.",
+    "left": { "label": "Eat the bill, add spend caps", "effects": { "cash": -40, "morale": 2 } },
+    "right": { "label": "Beg the provider for credits", "effects": { "cash": -10, "hype": -3 } },
+    "requires": { "min_month": 6 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "open_weights_drop",
+    "character": "priya",
+    "text": "A lab just open-sourced a model that does 90% of our core feature. For free. On a laptop. The blog post has confetti.",
+    "left": { "label": "Adopt it, slash our costs", "effects": { "cash": -20, "hype": 4 }, "sets_flag": "lean_infra" },
+    "right": { "label": "Our fine-tune is the moat", "effects": { "morale": 3, "hype": -4 } },
+    "requires": { "min_month": 8 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "wrapper_accusation",
+    "character": "chad",
+    "text": "Top comment on our launch post: 'this is just a GPT wrapper'. It has 2K upvotes and a diagram. The diagram is accurate.",
+    "left": { "label": "Publish the architecture blog", "effects": { "hype": 8, "morale": 3 } },
+    "right": { "label": "'Everything is a wrapper'", "effects": { "hype": 4, "morale": -2 } },
+    "requires": { "min_month": 6, "min_hype": 25 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "deepfake_ceo",
+    "character": "linda",
+    "text": "There's a deepfake of you endorsing a memecoin. It's very convincing. It has better posture than you.",
+    "left": { "label": "Lawyers and takedowns", "effects": { "cash": -30, "hype": -3 } },
+    "right": { "label": "Duet it. Own the meme.", "effects": { "hype": 9, "morale": -3 } },
+    "requires": { "min_month": 8, "min_hype": 30 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "training_data_deal",
+    "character": "doug",
+    "text": "An AI lab wants to license your user data for training. Seven figures. The contract calls your users 'the corpus'.",
+    "left": { "label": "Sell the corpus", "effects": { "cash": 100, "hype": -6, "morale": -5 }, "sets_flag": "sold_data" },
+    "right": { "label": "Users aren't a dataset", "effects": { "morale": 6 } },
+    "requires": { "min_month": 8 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "benchmark_gaming",
+    "character": "chad",
+    "text": "Chad built a benchmark where we beat every competitor. He also built the benchmark. Both facts are in the press release, in very different font sizes.",
+    "left": { "label": "Publish it", "effects": { "hype": 10, "morale": -4 }, "sets_flag": "rigged_benchmark" },
+    "right": { "label": "Benchmarks earn themselves", "effects": { "morale": 4 } },
+    "requires": { "min_month": 7 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "benchmark_busted",
+    "character": "priya",
+    "text": "A researcher reran Chad's benchmark. The thread has charts, a spreadsheet, and the phrase 'left as an exercise for the marketing team'.",
+    "left": { "label": "Retract and apologize", "effects": { "hype": -8, "morale": 4 } },
+    "right": { "label": "'Our methodology differs'", "effects": { "hype": -14, "morale": -4 } },
+    "requires": { "flag": "rigged_benchmark" },
+    "weight": 13,
+    "once": true
+  },
+  {
+    "id": "agi_doomer",
+    "character": "priya",
+    "text": "A senior engineer won't ship the new model integration. He says it 'looked at him funny' during eval. He's either burned out or right.",
+    "left": { "label": "Paid leave and a real eval process", "effects": { "cash": -20, "morale": 5 } },
+    "right": { "label": "Reassign him to frontend", "effects": { "morale": -5, "hype": 2 } },
+    "requires": { "min_month": 9 },
+    "weight": 7,
+    "once": true
+  },
+  {
+    "id": "gpu_cluster",
+    "character": "priya",
+    "text": "Priya wants 10,000 GPUs. 'Nobody takes you seriously under 10,000.' The invoice has a number you've only seen in funding announcements.",
+    "left": { "label": "Buy the cluster", "effects": { "cash": -500, "hype": 10, "morale": 5 } },
+    "right": { "label": "Spot instances and humility", "effects": { "cash": -100, "morale": -4 } },
+    "requires": { "flag": "funded_c" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "ai_first_layoffs",
+    "character": "linda",
+    "text": "The board loves the phrase 'AI-first company'. In practice it means the support team becomes a system prompt.",
+    "left": { "label": "Announce AI-first, cut deep", "effects": { "cash": 300, "morale": -14, "hype": 8 }, "sets_flag": "ai_first" },
+    "right": { "label": "Automate quietly, keep people", "effects": { "cash": 100, "morale": -3 } },
+    "requires": { "flag": "funded_c" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "foundation_model",
+    "character": "priya",
+    "text": "Priya wants to train our own foundation model. Six months, $80M, and a name that's already a Greek letter. 'Renting intelligence forever is the expensive option.'",
+    "left": { "label": "Train the model", "effects": { "cash": -800, "hype": 15, "morale": 6 } },
+    "right": { "label": "Keep renting intelligence", "effects": { "morale": -3 } },
+    "requires": { "flag": "funded_d" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "ai_safety_council",
+    "character": "doug",
+    "text": "The board wants an AI Safety Advisory Council before the IPO. Doug suggests 'someone with a beard who's been on panels'.",
+    "left": { "label": "A real one, with veto power", "effects": { "cash": -100, "morale": 6 } },
+    "right": { "label": "The beard will do", "effects": { "hype": 4, "morale": -3 } },
+    "requires": { "flag": "funded_d" },
+    "weight": 9,
+    "once": true
+  },
+  {
+    "id": "superintelligence_question",
+    "character": "angel",
+    "text": "An investor asks, in full seriousness, whether the product 'could become superintelligent'. It sends emails. Slightly faster than before.",
+    "left": { "label": "'...We can't rule it out'", "effects": { "hype": 12, "morale": -5 } },
+    "right": { "label": "'It sends emails, Gary'", "effects": { "morale": 5, "hype": -4 } },
+    "requires": { "min_valuation": 400000 },
+    "weight": 8,
+    "once": true
+  },
+  {
+    "id": "claude_payroll",
+    "character": "claude",
+    "text": "Claude's usage bill now exceeds a senior engineer's salary. In fairness, it did the work of nine engineers, two lawyers, and one very patient therapist.",
+    "left": { "label": "Sign the enterprise contract", "effects": { "cash": -100, "morale": 5 } },
+    "right": { "label": "Audit every token", "effects": { "cash": -30, "morale": -3 } },
+    "requires": { "flags": ["solo", "funded_c"] },
+    "weight": 9,
+    "once": true
+  },
+  {
     "id": "ipo_decacorn",
     "character": "doug",
     "text": "The bankers are back and the price talk starts with a B. Ten of them. Doug is crying. He says it's allergies. It is not allergies.",
