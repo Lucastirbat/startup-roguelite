@@ -57,9 +57,15 @@ const FLAG_STORIES := {
 	"migrated_db": "You migrated the database before it exploded. Nobody noticed. That was the point.",
 }
 
+const COL_GOOD := "#4be38a"
+const COL_BAD := "#f05a5a"
+const COL_GOLD := "#f2c40f"
+const COL_DIM := "#8a90a0"
+
 @onready var bg: ColorRect = %BG
 @onready var title_label: Label = %TitleLabel
-@onready var body_label: Label = %BodyLabel
+@onready var subtitle_label: Label = %SubtitleLabel
+@onready var body_label: RichTextLabel = %BodyLabel
 @onready var payout_label: Label = %PayoutLabel
 @onready var high_score_label: Label = %HighScoreLabel
 @onready var restart_button: Button = %RestartButton
@@ -75,41 +81,64 @@ func _ready() -> void:
 	var payout := 0
 	if GameState.won:
 		payout = GameState.score()
-		bg.color = Color(0.07, 0.13, 0.09)
+		_tint_bg(Color(0.05, 0.09, 0.07), Color(0.07, 0.16, 0.11), Color(0.29, 0.89, 0.54))
 		title_label.text = "EXIT!"
+		title_label.add_theme_color_override("font_color", Color(0.29, 0.89, 0.54))
+		subtitle_label.text = "THE WIRE CLEARED. IT'S REAL."
 		body_label.text = _win_text()
 		payout_label.text = "PAYOUT: %s" % GameState.fmt_money(payout)
+		payout_label.add_theme_color_override("font_color", Color(0.95, 0.77, 0.06))
 	else:
-		bg.color = Color(0.13, 0.07, 0.08)
+		_tint_bg(Color(0.09, 0.05, 0.06), Color(0.16, 0.07, 0.09), Color(0.94, 0.35, 0.35))
 		title_label.text = "STARTUP DIED"
+		title_label.add_theme_color_override("font_color", Color(0.94, 0.35, 0.35))
+		subtitle_label.text = "POST-MORTEM"
 		body_label.text = _death_text()
-		payout_label.text = "PAYOUT: $0  (startups are illiquid)"
+		payout_label.text = "PAYOUT: $0"
 	GameState.submit_score(payout)
 	high_score_label.text = "BEST EXIT: %s" % GameState.fmt_money(GameState.high_score)
 
+# Material is resource_local_to_scene, so this only tints this screen.
+func _tint_bg(base: Color, glow: Color, accent: Color) -> void:
+	var mat: ShaderMaterial = bg.material
+	mat.set_shader_parameter("base_color", base)
+	mat.set_shader_parameter("glow_color", glow)
+	mat.set_shader_parameter("accent_color", accent)
+
 func _win_text() -> String:
-	var lines := []
-	lines.append("You sold the company in Month %d." % GameState.month)
-	lines.append("Final valuation: %s. You kept %d%% of it." %
-		[GameState.fmt_money(GameState.valuation), int(GameState.stats.equity)])
-	lines.append_array(_story_lines())
-	return "\n".join(lines)
+	var text := "[center][b]You sold the company in Month %d.[/b]\n" % GameState.month
+	text += "Final valuation: [color=%s]%s[/color]. You kept [color=%s]%d%%[/color] of it.[/center]" % [
+		COL_GOOD, GameState.fmt_money(GameState.valuation),
+		COL_GOLD, int(GameState.stats.equity)]
+	return text + _story_bbcode()
 
 func _death_text() -> String:
-	var lines := []
-	lines.append("You died in Month %d." % GameState.month)
+	var text := "[center][b]You died in Month %d.[/b]\n" % GameState.month
 	match GameState.death_cause:
 		"cash":
-			lines.append("Cause of death: payroll. The money ran out.")
+			text += "[color=%s]Cause of death: payroll. The money ran out.[/color]" % COL_BAD
 		"morale":
-			lines.append("Cause of death: the whole team quit in the same Slack thread.")
-	lines.append("")
-	lines.append_array(_story_lines())
-	lines.append("")
-	lines.append("Paper valuation was %s. Your %d%% was worth %s — on paper." %
-		[GameState.fmt_money(GameState.valuation), int(GameState.stats.equity),
-		GameState.fmt_money(GameState.score())])
-	return "\n".join(lines)
+			text += "[color=%s]Cause of death: the whole team quit in the same Slack thread.[/color]" % COL_BAD
+	text += "[/center]"
+	text += _story_bbcode()
+	text += "\n\n[center][color=%s]Paper valuation was %s. Your %d%% was worth %s — on paper.[/color][/center]" % [
+		COL_DIM, GameState.fmt_money(GameState.valuation),
+		int(GameState.stats.equity), GameState.fmt_money(GameState.score())]
+	return text
+
+# Cap the log so it fits without scrolling; keep the most recent chapters.
+const MAX_STORY_LINES := 8
+
+func _story_bbcode() -> String:
+	var lines := _story_lines()
+	if lines.is_empty():
+		return ""
+	if lines.size() > MAX_STORY_LINES:
+		lines = lines.slice(lines.size() - MAX_STORY_LINES)
+	var out := "\n\n[center][color=%s]— HOW IT WENT —[/color][/center]\n" % COL_DIM
+	for line in lines:
+		out += "\n[color=%s]-[/color]  %s" % [COL_DIM, line]
+	return out
 
 # Some flags are set by different characters depending on the run:
 # solo runs get Claude flavor instead of Priya.

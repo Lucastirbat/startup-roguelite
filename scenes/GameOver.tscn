@@ -1,6 +1,42 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://scripts/GameOver.gd" id="1"]
+[ext_resource type="Material" path="res://assets/shaders/background_material.tres" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="StoryPanel"]
+content_margin_left = 28.0
+content_margin_top = 20.0
+content_margin_right = 28.0
+content_margin_bottom = 20.0
+bg_color = Color(0.09, 0.1, 0.13, 0.88)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.31, 0.38, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 8
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="PayoutPanel"]
+content_margin_left = 20.0
+content_margin_top = 10.0
+content_margin_right = 20.0
+content_margin_bottom = 10.0
+bg_color = Color(0.11, 0.12, 0.15, 0.9)
+border_width_left = 4
+border_color = Color(0.95, 0.77, 0.06, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 5
+shadow_offset = Vector2(0, 2)
 
 [node name="GameOver" type="Control"]
 layout_mode = 3
@@ -19,7 +55,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.13, 0.07, 0.08, 1)
+material = ExtResource("2")
+color = Color(0.09, 0.1, 0.13, 1)
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,43 +65,69 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 24
 
 [node name="VBox" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 16
 
 [node name="TitleLabel" type="Label" parent="Margin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 52
 horizontal_alignment = 1
 text = "STARTUP DIED"
 
-[node name="BodyLabel" type="Label" parent="Margin/VBox"]
+[node name="SubtitleLabel" type="Label" parent="Margin/VBox"]
 unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.58, 0.65, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+text = "POST-MORTEM"
+
+[node name="StoryPanel" type="PanelContainer" parent="Margin/VBox"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 19
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-text = "..."
+theme_override_styles/panel = SubResource("StoryPanel")
 
-[node name="PayoutLabel" type="Label" parent="Margin/VBox"]
+[node name="BodyLabel" type="RichTextLabel" parent="Margin/VBox/StoryPanel"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_colors/default_color = Color(0.85, 0.87, 0.92, 1)
+theme_override_constants/line_separation = 7
+theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/bold_font_size = 18
+bbcode_enabled = true
+scroll_active = false
+text = "..."
+
+[node name="PayoutCenter" type="CenterContainer" parent="Margin/VBox"]
+layout_mode = 2
+
+[node name="PayoutPanel" type="PanelContainer" parent="Margin/VBox/PayoutCenter"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("PayoutPanel")
+
+[node name="PayoutVBox" type="VBoxContainer" parent="Margin/VBox/PayoutCenter/PayoutPanel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="PayoutLabel" type="Label" parent="Margin/VBox/PayoutCenter/PayoutPanel/PayoutVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 text = "PAYOUT: $0"
 
-[node name="HighScoreLabel" type="Label" parent="Margin/VBox"]
+[node name="HighScoreLabel" type="Label" parent="Margin/VBox/PayoutCenter/PayoutPanel/PayoutVBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.55, 0.58, 0.65, 1)
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
 text = "BEST EXIT: $0"
 
@@ -73,7 +136,14 @@ layout_mode = 2
 
 [node name="RestartButton" type="Button" parent="Margin/VBox/ButtonCenter"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(260, 64)
+custom_minimum_size = Vector2(260, 60)
 layout_mode = 2
 theme_override_font_sizes/font_size = 22
 text = "Start Game"
+
+[node name="CreditLabel" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.42, 0.45, 0.52, 1)
+theme_override_font_sizes/font_size = 13
+horizontal_alignment = 1
+text = "made by ReaktorX"

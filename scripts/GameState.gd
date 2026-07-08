@@ -3,8 +3,8 @@ extends Node
 # Autoload: holds the run state, applies effects, saves the high score.
 
 const SAVE_PATH := "user://save.cfg"
-const MONTH_NAMES := ["January", "February", "March", "April", "May", "June",
-	"July", "August", "September", "October", "November", "December"]
+const MONTH_NAMES := ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 const BASE_BURN := 25      # $K per month pre-funding, grows with each stage
 const HYPE_DECAY := 3
 

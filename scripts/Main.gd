@@ -26,7 +26,7 @@ var prev := {}  # previous stat values, for change flashes
 @onready var equity_label: Label = %EquityLabel
 @onready var cash_box: PanelContainer = %CashBox
 @onready var morale_box: PanelContainer = %MoraleBox
-@onready var cash_caption: Label = %CashCaption
+@onready var burn_label: Label = %BurnLabel
 @onready var portrait_panel: Panel = %PortraitPanel
 @onready var portrait_label: Label = %PortraitLabel
 @onready var portrait_texture: TextureRect = %PortraitTexture
@@ -127,7 +127,7 @@ func _render_card() -> void:
 func _update_stats() -> void:
 	valuation_label.text = GameState.fmt_money(GameState.valuation)
 	cash_label.text = GameState.fmt_money(int(GameState.stats.cash))
-	cash_caption.text = "CASH  -%s/MO" % GameState.fmt_money(GameState.current_burn())
+	burn_label.text = "-%s" % GameState.fmt_money(GameState.current_burn())
 	morale_label.text = "%d" % int(GameState.stats.morale)
 	hype_label.text = "%d" % int(GameState.stats.hype)
 	equity_label.text = "%d%%" % int(GameState.stats.equity)
