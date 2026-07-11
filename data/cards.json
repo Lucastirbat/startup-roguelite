@@ -698,7 +698,7 @@
     "text": "I like the cut of your jib. $300K for 10%. I also said 'jib' to the last twelve founders.",
     "left": { "label": "Take $300K for 10%", "effects": { "cash": 300, "equity": -10, "set_valuation": 3000 }, "sets_flag": "funded_angel", "clears_flag": "day_job" },
     "right": { "label": "Keep grinding", "effects": { "morale": 3 }, "sets_flag": "desperate" },
-    "requires": { "min_month": 3 },
+    "requires": { "min_month": 3, "not_flag": "funded_angel" },
     "weight": 20,
     "once": true,
     "funding": true
@@ -709,7 +709,7 @@
     "text": "Seed round: $1M at a $5M post-money. Clean terms. Well. Clean-ish.",
     "left": { "label": "Take $1M for 20%", "effects": { "cash": 1000, "equity": -20, "set_valuation": 5000 }, "sets_flag": "funded_seed", "clears_flag": ["day_job", "garage"] },
     "right": { "label": "Keep bootstrapping", "effects": { "morale": 3 }, "sets_flag": "passed_seed" },
-    "requires": { "min_valuation": 2000 },
+    "requires": { "min_valuation": 2000, "not_flag": "funded_seed" },
     "weight": 20,
     "once": true,
     "funding": true
@@ -718,9 +718,9 @@
     "id": "fund_seed_trap",
     "character": "doug",
     "text": "Better offer: $1.2M at $5.5M! Standard terms. Don't worry about the option pool paragraph. Nobody reads the option pool paragraph.",
-    "left": { "label": "Take $1.2M, skip the paragraph", "effects": { "cash": 1200, "equity": -32, "set_valuation": 5500 }, "sets_flag": "option_pooled", "clears_flag": ["day_job", "garage"] },
+    "left": { "label": "Take $1.2M, skip the paragraph", "effects": { "cash": 1200, "equity": -32, "set_valuation": 5500 }, "sets_flag": ["option_pooled", "funded_seed"], "clears_flag": ["day_job", "garage"] },
     "right": { "label": "Read the paragraph", "effects": { "morale": 2, "hype": -2 } },
-    "requires": { "min_valuation": 2000 },
+    "requires": { "min_valuation": 2000, "not_flag": "funded_seed" },
     "weight": 18,
     "once": true,
     "funding": true
@@ -731,7 +731,7 @@
     "text": "Series A: $4M at a $20M post. There will be a board now. The board will have opinions.",
     "left": { "label": "Take $4M for 20%", "effects": { "cash": 4000, "equity": -20, "set_valuation": 20000 }, "sets_flag": "funded_a", "clears_flag": ["day_job", "garage"] },
     "right": { "label": "Not yet", "effects": { "hype": 3 } },
-    "requires": { "min_valuation": 6000 },
+    "requires": { "min_valuation": 6000, "not_flag": "funded_a" },
     "weight": 20,
     "once": true,
     "funding": true
@@ -742,8 +742,158 @@
     "text": "Series B: $10M at a $60M post. You now employ someone whose whole job is buying chairs.",
     "left": { "label": "Take $10M for 15%", "effects": { "cash": 10000, "equity": -15, "set_valuation": 60000 }, "sets_flag": "funded_b" },
     "right": { "label": "We're fine on cash", "effects": { "morale": 3 } },
-    "requires": { "min_valuation": 25000 },
+    "requires": { "min_valuation": 25000, "not_flag": "funded_b" },
     "weight": 20,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "angel_uncapped_safe",
+    "character": "angel",
+    "text": "Different jib guy, different jib. $400K on an uncapped SAFE. No valuation, no board seat, no math. The math comes later. Math always comes later.",
+    "left": { "label": "Take $400K, sign the SAFE", "effects": { "cash": 400, "set_valuation": 2500 }, "sets_flag": ["funded_angel", "uncapped_safe"], "clears_flag": "day_job" },
+    "right": { "label": "Terms now, money later", "effects": { "morale": 3 } },
+    "requires": { "min_month": 3, "not_flag": "funded_angel" },
+    "weight": 14,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "safe_conversion",
+    "character": "doug",
+    "text": "The seed round triggers the SAFE conversion. Uncapped means the angel converts at whatever he wants, and what he wants is a lot of your cap table.",
+    "left": { "label": "Honor the math", "effects": { "equity": -14, "morale": 3 } },
+    "right": { "label": "Lawyer up over pro-rata", "effects": { "equity": -8, "cash": -60, "hype": -6 } },
+    "requires": { "flags": ["uncapped_safe", "funded_seed"] },
+    "weight": 18,
+    "once": true
+  },
+  {
+    "id": "angel_revenue_share",
+    "character": "angel",
+    "text": "An old-school angel offers $250K for zero equity. He just takes 2% of revenue. 'Until when?' you ask. He smiles like a man who owns four marinas.",
+    "left": { "label": "Take $250K, keep the equity", "effects": { "cash": 250, "set_valuation": 2000 }, "sets_flag": ["funded_angel", "rev_share"], "clears_flag": "day_job" },
+    "right": { "label": "Nothing lasts 'until forever'", "effects": { "morale": 3 } },
+    "requires": { "min_month": 3, "not_flag": "funded_angel" },
+    "weight": 14,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "rev_share_buyout",
+    "character": "linda",
+    "text": "Finance ran the numbers: the marina guy's 2% is now the most expensive money you've ever taken. He sends a fruit basket every quarter. It feels like rent.",
+    "left": { "label": "Buy out the rev share", "effects": { "cash": -180, "morale": 5 }, "clears_flag": "rev_share" },
+    "right": { "label": "Keep paying the marina tax", "effects": { "morale": -4 } },
+    "requires": { "flag": "rev_share", "min_month": 12 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "fund_seed_party",
+    "character": "angel",
+    "text": "A party round comes together: $900K from fourteen angels, no lead investor, and one shared Notion doc of opinions. The doc is already 40 pages.",
+    "left": { "label": "Take $900K for 15%", "effects": { "cash": 900, "equity": -15, "set_valuation": 6000 }, "sets_flag": ["funded_seed", "party_round"], "clears_flag": ["day_job", "garage"] },
+    "right": { "label": "Fourteen bosses is thirteen too many", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 2000, "not_flag": "funded_seed" },
+    "weight": 16,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "party_round_paperwork",
+    "character": "linda",
+    "text": "Diligence needs signatures from all fourteen angels. One is on a silent retreat. One is suing a different startup. One replies only in voice memos.",
+    "left": { "label": "Pay lawyers to herd them", "effects": { "cash": -40, "morale": 2 } },
+    "right": { "label": "Chase signatures yourself", "effects": { "morale": -5, "hype": -4 } },
+    "requires": { "flag": "party_round", "min_month": 12 },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "fund_seed_debt",
+    "character": "doug",
+    "text": "A venture bank offers $800K in debt. No dilution. Doug slides the term sheet over: 'The covenants have covenants. But you keep your cap table.'",
+    "left": { "label": "Take $800K, zero dilution", "effects": { "cash": 800 }, "sets_flag": ["funded_seed", "venture_debt"], "clears_flag": ["day_job", "garage"] },
+    "right": { "label": "Debt and startups don't mix", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 2000, "not_flag": "funded_seed" },
+    "weight": 14,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "debt_covenant",
+    "character": "doug",
+    "text": "Cash dipped below the covenant line. The bank's 'relationship manager' stopped using exclamation points. That's how you know.",
+    "left": { "label": "Restructure: pay down half", "effects": { "cash": -150, "morale": 2 }, "clears_flag": "venture_debt" },
+    "right": { "label": "Convert the loan to equity", "effects": { "equity": -8, "morale": -3 }, "clears_flag": "venture_debt" },
+    "requires": { "flag": "venture_debt", "max_cash": 250 },
+    "weight": 16,
+    "once": true
+  },
+  {
+    "id": "fund_a_preempt",
+    "character": "doug",
+    "text": "A hot fund preempts your Series A: $6M at a $30M post, term sheet expires at midnight. 'We move fast,' says the partner, from a moving Sprinter van.",
+    "left": { "label": "Take $6M for 15%", "effects": { "cash": 6000, "equity": -15, "set_valuation": 30000 }, "sets_flag": "funded_a", "clears_flag": ["day_job", "garage"] },
+    "right": { "label": "Deadlines are a negotiating tactic", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 6000, "min_hype": 40, "not_flag": "funded_a" },
+    "weight": 18,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_a_pref",
+    "character": "doug",
+    "text": "Series A offer: $5M at a $25M post — with a 2x liquidation preference. 'Standard downside protection,' says Doug, not making eye contact.",
+    "left": { "label": "Take $5M, eat the preference", "effects": { "cash": 5000, "equity": -18, "set_valuation": 25000 }, "sets_flag": ["funded_a", "liq_pref"], "clears_flag": ["day_job", "garage"] },
+    "right": { "label": "2x means no", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 6000, "not_flag": "funded_a" },
+    "weight": 16,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_b_crossover",
+    "character": "doug",
+    "text": "A crossover fund wants in before the IPO that isn't scheduled: $20M at a $90M post. Their analyst model has 40 tabs and one assumption.",
+    "left": { "label": "Take $20M for 12%", "effects": { "cash": 20000, "equity": -12, "set_valuation": 90000 }, "sets_flag": "funded_b" },
+    "right": { "label": "Public-market money has moods", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 30000, "min_hype": 40, "not_flag": "funded_b" },
+    "weight": 18,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_b_structured",
+    "character": "doug",
+    "text": "The market cooled. The only Series B on the table: $8M at a $45M post with full-ratchet anti-dilution. The trap is on page 12. It's always page 12.",
+    "left": { "label": "Take $8M, skip page 12", "effects": { "cash": 8000, "equity": -25, "set_valuation": 45000, "morale": -4 }, "sets_flag": ["funded_b", "ratchet_terms"] },
+    "right": { "label": "Survive without it", "effects": { "morale": 3 } },
+    "requires": { "min_valuation": 25000, "max_hype": 18, "not_flag": "funded_b" },
+    "weight": 16,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_c_sovereign",
+    "character": "doug",
+    "text": "A sovereign wealth fund offers $60M at a $350M post. The money is patient. The questions about your journalist users are not.",
+    "left": { "label": "Take $60M for 12%", "effects": { "cash": 60000, "equity": -12, "set_valuation": 350000, "morale": -5 }, "sets_flag": "funded_c" },
+    "right": { "label": "Some money costs more than money", "effects": { "morale": 4 } },
+    "requires": { "min_valuation": 90000, "min_month": 16, "not_flag": "funded_c" },
+    "weight": 18,
+    "once": true,
+    "funding": true
+  },
+  {
+    "id": "fund_d_ratchet",
+    "character": "doug",
+    "text": "Series D alternative: $180M at a $1.2B post — with an IPO ratchet. List below $1.2B and they get made whole. Guess whose shares make them whole.",
+    "left": { "label": "Take $180M for 10%", "effects": { "cash": 180000, "equity": -10, "set_valuation": 1200000 }, "sets_flag": ["funded_d", "ipo_ratchet"] },
+    "right": { "label": "No ratchets on my cap table", "effects": { "morale": 3, "hype": -3 } },
+    "requires": { "min_valuation": 450000, "min_month": 20, "min_hype": 25, "not_flag": "funded_d" },
+    "weight": 18,
     "once": true,
     "funding": true
   },
@@ -1231,7 +1381,7 @@
     "text": "Series C: $50M at a $300M post. The deck writes itself now. Mostly it writes the word 'category-defining'.",
     "left": { "label": "Take $50M for 10%", "effects": { "cash": 50000, "equity": -10, "set_valuation": 300000 }, "sets_flag": "funded_c" },
     "right": { "label": "We don't need it yet", "effects": { "morale": 3 } },
-    "requires": { "min_valuation": 120000, "min_month": 16 },
+    "requires": { "min_valuation": 90000, "min_month": 16, "not_flag": "funded_c" },
     "weight": 20,
     "once": true,
     "funding": true
@@ -1242,7 +1392,7 @@
     "text": "Series D: $150M at a $1B post-money. Unicorn. There will be a party. There will be an ice sculpture.",
     "left": { "label": "Take $150M for 8%", "effects": { "cash": 150000, "equity": -8, "set_valuation": 1000000 }, "sets_flag": "funded_d" },
     "right": { "label": "Horses are fine too", "effects": { "morale": 3, "hype": -3 } },
-    "requires": { "min_valuation": 450000, "min_month": 20, "min_hype": 25 },
+    "requires": { "min_valuation": 450000, "min_month": 20, "min_hype": 25, "not_flag": "funded_d" },
     "weight": 20,
     "once": true,
     "funding": true
@@ -1714,7 +1864,7 @@
     "text": "The bankers are back and the price talk starts with a B. Ten of them. Doug is crying. He says it's allergies. It is not allergies.",
     "left": { "label": "IPO at $10B", "effects": { "set_valuation": 10000000 }, "exit": true },
     "right": { "label": "Stay private. Forever. Chaos.", "effects": { "morale": 5, "hype": 5 } },
-    "requires": { "min_valuation": 6000000, "min_month": 34, "min_hype": 40 },
+    "requires": { "min_valuation": 4500000, "min_month": 34, "min_hype": 40 },
     "weight": 16,
     "once": true
   }

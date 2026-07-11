@@ -37,9 +37,9 @@ func reset() -> void:
 # ops flags pull it back down.
 func current_burn() -> int:
 	# Founding arc (months 1-4): two people and a laptop, not a payroll.
-	# Ramen, hosting, and a domain name. The day job nearly covers it.
+	# Nothing to burn yet — the company barely exists.
 	if month <= 4:
-		return 3 if flags.has("day_job") else 10
+		return 0
 	var burn := BASE_BURN
 	if flags.has("funded_angel"):
 		burn += 25
@@ -65,15 +65,22 @@ func current_burn() -> int:
 		burn -= 15
 	if flags.has("lean_infra"):
 		burn -= 10
+	if flags.has("venture_debt"):
+		burn += 30
+	if flags.has("rev_share"):
+		burn += 15
 	return maxi(burn, 10)
 
 func monthly_tick() -> void:
 	stats.cash -= current_burn()
-	stats.hype = maxi(stats.hype - HYPE_DECAY, 0)
-	# Hype drives valuation; the effect scales with company size so later
-	# funding tiers stay reachable after a round ratchets the floor up.
-	var drift_per_point := 25 + valuation / 100
-	valuation = maxi(valuation + (stats.hype - 15) * drift_per_point, valuation_floor)
+	# High hype fades faster than low hype: staying famous is a treadmill.
+	stats.hype = maxi(stats.hype - maxi(HYPE_DECAY, int(stats.hype / 10.0)), 0)
+	# Hype drives valuation: each point above 15 adds 0.8%/month, capped at
+	# +/-15% so growth compounds but can never run away. The flat term keeps
+	# the pre-funding bootstrap path alive while the valuation is tiny.
+	var pct := clampf((int(stats.hype) - 15) * 0.8, -15.0, 15.0)
+	var delta := int(valuation * pct / 100.0) + (int(stats.hype) - 15) * 15
+	valuation = maxi(valuation + delta, valuation_floor)
 
 func apply_effects(effects: Dictionary) -> void:
 	for key in effects:
@@ -84,7 +91,7 @@ func apply_effects(effects: Dictionary) -> void:
 			"morale":
 				stats.morale = clampi(stats.morale + v, 0, 100)
 			"hype":
-				stats.hype = maxi(stats.hype + v, 0)
+				stats.hype = clampi(stats.hype + v, 0, 100)
 			"equity":
 				stats.equity = clampi(stats.equity + v, 0, 100)
 			"valuation":
@@ -109,9 +116,16 @@ func check_death() -> String:
 		return "morale"
 	return ""
 
-# Score = Valuation x Equity%
+# Score = Valuation x Equity%, minus whatever the term sheets take off the top.
 func score() -> int:
-	return int(valuation * stats.equity / 100.0)
+	var payout: float = valuation * stats.equity / 100.0
+	if flags.has("liq_pref"):
+		payout *= 0.8   # the 2x liquidation preference collects
+	if flags.has("ratchet_terms"):
+		payout *= 0.9   # full-ratchet anti-dilution collects
+	if flags.has("ipo_ratchet"):
+		payout *= 0.85  # the IPO ratchet makes them whole, not you
+	return int(payout)
 
 func month_title() -> String:
 	var year := (month - 1) / 12 + 1

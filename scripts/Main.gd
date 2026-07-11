@@ -127,7 +127,8 @@ func _render_card() -> void:
 func _update_stats() -> void:
 	valuation_label.text = GameState.fmt_money(GameState.valuation)
 	cash_label.text = GameState.fmt_money(int(GameState.stats.cash))
-	burn_label.text = "-%s" % GameState.fmt_money(GameState.current_burn())
+	var burn := GameState.current_burn()
+	burn_label.text = ("-%s" % GameState.fmt_money(burn)) if burn > 0 else "$0"
 	morale_label.text = "%d" % int(GameState.stats.morale)
 	hype_label.text = "%d" % int(GameState.stats.hype)
 	equity_label.text = "%d%%" % int(GameState.stats.equity)
