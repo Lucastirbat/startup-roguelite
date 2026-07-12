@@ -1,3 +1,6 @@
-FROM nginx:alpine
-COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
-COPY build/web /usr/share/nginx/html
+FROM node:20-alpine
+WORKDIR /app
+COPY deploy/server.js ./server.js
+COPY build/web ./public
+EXPOSE 8080
+CMD ["node", "server.js"]

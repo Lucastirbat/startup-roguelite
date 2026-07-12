@@ -62,6 +62,15 @@ const FLAG_STORIES := {
 	"lean_ops": "You cut the kombucha. It was time.",
 	"lean_infra": "You deleted 'staging-final-2'. Nothing broke. Probably.",
 	"migrated_db": "You migrated the database before it exploded. Nobody noticed. That was the point.",
+	"declined_island": "You declined the island invitation. The best decision you never had to explain.",
+	"island_visit": "You flew to the island. The flight logs remember.",
+	"island_deal": "You let a mystery financier 'manage' $15M. It managed you.",
+	"island_out": "You walked away from the shell game. Late. But you walked.",
+	"island_laundering": "Meridian Holdings (BVI) invoiced you for consulting that never happened.",
+	"cooked_books": "Your biggest enterprise customer was your own money, wearing a hat.",
+	"settled_sec": "The SEC settled for the money, the interest, and your dignity.",
+	"denied_feds": "You denied everything. The evidence did not.",
+	"flipped_on_jeffrey": "You cooperated fully. Jeffrey's lawyers called you 'a disappointment'.",
 }
 
 const COL_GOOD := "#4be38a"
@@ -76,6 +85,11 @@ const COL_DIM := "#8a90a0"
 @onready var payout_label: Label = %PayoutLabel
 @onready var high_score_label: Label = %HighScoreLabel
 @onready var restart_button: Button = %RestartButton
+@onready var submit_center: CenterContainer = %SubmitCenter
+@onready var name_edit: LineEdit = %NameEdit
+@onready var submit_button: Button = %SubmitButton
+
+var final_payout := 0
 
 func _ready() -> void:
 	restart_button.pressed.connect(_on_restart)
@@ -95,6 +109,13 @@ func _ready() -> void:
 		body_label.text = _win_text()
 		payout_label.text = "PAYOUT: %s" % GameState.fmt_money(payout)
 		payout_label.add_theme_color_override("font_color", Color(0.95, 0.77, 0.06))
+	elif GameState.death_cause == "arrested":
+		_tint_bg(Color(0.05, 0.06, 0.1), Color(0.07, 0.1, 0.18), Color(0.35, 0.55, 0.94))
+		title_label.text = "BUSTED"
+		title_label.add_theme_color_override("font_color", Color(0.45, 0.62, 0.95))
+		subtitle_label.text = "UNITED STATES v. YOU"
+		body_label.text = _arrest_text()
+		payout_label.text = "PAYOUT: $0"
 	else:
 		_tint_bg(Color(0.09, 0.05, 0.06), Color(0.16, 0.07, 0.09), Color(0.94, 0.35, 0.35))
 		title_label.text = "STARTUP DIED"
@@ -104,6 +125,28 @@ func _ready() -> void:
 		payout_label.text = "PAYOUT: $0"
 	GameState.submit_score(payout)
 	high_score_label.text = "BEST EXIT: %s" % GameState.fmt_money(GameState.high_score)
+	# Global leaderboard: only real exits get on the board.
+	final_payout = payout
+	submit_center.visible = GameState.won and payout > 0
+	name_edit.text = GameState.player_name
+	submit_button.pressed.connect(_on_submit)
+
+func _on_submit() -> void:
+	var pname := name_edit.text.strip_edges()
+	if pname == "":
+		name_edit.grab_focus()
+		return
+	GameState.save_player_name(pname)
+	submit_button.disabled = true
+	name_edit.editable = false
+	submit_button.text = "Submitting..."
+	Leaderboard.submit(pname, final_payout, GameState.month, func(ok: bool) -> void:
+		if ok:
+			submit_button.text = "On the board!"
+		else:
+			submit_button.text = "Failed — retry"
+			submit_button.disabled = false
+			name_edit.editable = true)
 
 # Material is resource_local_to_scene, so this only tints this screen.
 func _tint_bg(base: Color, glow: Color, accent: Color) -> void:
@@ -118,6 +161,18 @@ func _win_text() -> String:
 		COL_GOOD, GameState.fmt_money(GameState.valuation),
 		COL_GOLD, int(GameState.stats.equity)]
 	return text + _story_bbcode()
+
+func _arrest_text() -> String:
+	var text := "[center][b]Federal agents ended the run in Month %d.[/b]\n" % GameState.month
+	text += "[color=%s]Wire fraud. Money laundering. Securities fraud. Conspiracy.[/color]\n" % COL_BAD
+	if GameState.flags.has("flipped_on_jeffrey"):
+		text += "Cooperation bought you a reduced sentence. It did not buy back the company.[/center]"
+	else:
+		text += "Your lawyer billed $2,400 an hour to lose.[/center]"
+	text += _story_bbcode()
+	text += "\n\n[center][color=%s]The %s valuation was seized as evidence. Your %d%% now belongs to the Southern District of New York.[/color][/center]" % [
+		COL_DIM, GameState.fmt_money(GameState.valuation), int(GameState.stats.equity)]
+	return text
 
 func _death_text() -> String:
 	var text := "[center][b]You died in Month %d.[/b]\n" % GameState.month

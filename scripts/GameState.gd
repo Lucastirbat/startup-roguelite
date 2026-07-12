@@ -14,6 +14,7 @@ var flags: Array = []
 var valuation := 500       # $K, derived: ratchets on funding, drifts with hype
 var valuation_floor := 500
 var high_score := 0        # best payout in $K
+var player_name := ""      # for the global leaderboard, remembered between runs
 var death_cause := ""      # "cash" | "morale" | "" if alive
 var won := false
 var exited := false        # sold the company via an exit card
@@ -153,8 +154,14 @@ func _load_save() -> void:
 	var cfg := ConfigFile.new()
 	if cfg.load(SAVE_PATH) == OK:
 		high_score = int(cfg.get_value("meta", "high_score", 0))
+		player_name = str(cfg.get_value("meta", "player_name", ""))
+
+func save_player_name(pname: String) -> void:
+	player_name = pname
+	_save()
 
 func _save() -> void:
 	var cfg := ConfigFile.new()
 	cfg.set_value("meta", "high_score", high_score)
+	cfg.set_value("meta", "player_name", player_name)
 	cfg.save(SAVE_PATH)

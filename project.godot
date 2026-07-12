@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 
 GameState="*res://scripts/GameState.gd"
 Audio="*res://scripts/Audio.gd"
+Leaderboard="*res://scripts/Leaderboard.gd"
 
 [display]
 

@@ -60,6 +60,28 @@ func _initialize() -> void:
 			printerr("FAIL: missing card ", id)
 			failures += 1
 
+	# Hidden island quest: all chapters exist, next_card refs resolve,
+	# and the raid actually arrests you.
+	var quest := ["jw_invite", "jw_island", "jw_shell", "jw_books",
+		"jw_raid", "jw_subpoena", "jw_news"]
+	for id in quest:
+		if not ids.has(id):
+			printerr("FAIL: missing quest card ", id)
+			failures += 1
+	for c in deck.cards:
+		for side in ["left", "right"]:
+			var next: String = c.get(side, {}).get("next_card", "")
+			if next != "" and not ids.has(next):
+				printerr("FAIL: ", c.get("id"), " points at missing card ", next)
+				failures += 1
+	var raid := {}
+	for c in deck.cards:
+		if c.get("id", "") == "jw_raid":
+			raid = c
+	if not (raid.get("left", {}).get("arrest", false) and raid.get("right", {}).get("arrest", false)):
+		printerr("FAIL: jw_raid must arrest on both choices")
+		failures += 1
+
 	# Burn: venture debt and rev share raise it, seed trap counts as funded_seed.
 	gs.reset()
 	gs.month = 10

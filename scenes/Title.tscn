@@ -75,6 +75,25 @@ theme_override_font_sizes/font_size = 16
 horizontal_alignment = 1
 text = "BEST EXIT: $0"
 
+[node name="BoardTitle" type="Label" parent="Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.77, 0.06, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+text = "— GLOBAL TOP EXITS —"
+
+[node name="BoardLabel" type="RichTextLabel" parent="Center/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(440, 120)
+layout_mode = 2
+theme_override_colors/default_color = Color(0.65, 0.68, 0.75, 1)
+theme_override_font_sizes/normal_font_size = 14
+theme_override_font_sizes/bold_font_size = 14
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+text = "fetching..."
+
 [node name="ButtonCenter" type="CenterContainer" parent="Center/VBox"]
 layout_mode = 2
 

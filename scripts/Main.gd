@@ -11,6 +11,8 @@ const CHARACTERS := {
 	"angel": {"name": "The Angel", "color": Color("b7950b"), "initial": "A", "portrait": "res://assets/graphics/angel.png"},
 	"mom": {"name": "Your Mom", "color": Color("c2185b"), "initial": "M", "portrait": "res://assets/graphics/Mom.png"},
 	"claude": {"name": "Claude — AI Co-founder", "color": Color("d97757"), "initial": "AI", "portrait": "res://assets/graphics/claude.png"},
+	"jeffrey": {"name": "Jeffrey Weinstein — Financier", "color": Color("9a7d0a"), "initial": "J", "portrait": "res://assets/graphics/jeffrey.png"},
+	"fbi": {"name": "Special Agent Reyes — FBI", "color": Color("1a5276"), "initial": "FBI", "portrait": "res://assets/graphics/fbi.png"},
 }
 
 var deck: Deck
@@ -67,6 +69,10 @@ func _choose(side: String) -> void:
 		GameState.remove_flag(f)
 	pending_next = choice.get("next_card", "")
 	_update_stats()
+	if choice.get("arrest", false):
+		GameState.death_cause = "arrested"
+		_end_run()
+		return
 	if choice.get("exit", false):
 		GameState.won = true
 		GameState.exited = true

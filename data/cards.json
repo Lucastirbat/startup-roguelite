@@ -1867,5 +1867,75 @@
     "requires": { "min_valuation": 4500000, "min_month": 34, "min_hype": 40 },
     "weight": 16,
     "once": true
+  },
+  {
+    "id": "jw_invite",
+    "character": "jeffrey",
+    "text": "A gold-embossed invitation. Jeffrey Weinstein — financier, though nobody can say of what — invites you to his private island. 'Founders like you deserve friends like me.' His jet is already fueled.",
+    "left": { "label": "Board the jet", "effects": { "hype": 3 }, "sets_flag": "island_visit", "next_card": "jw_island" },
+    "right": { "label": "Decline. Something is off.", "effects": { "morale": 2 }, "sets_flag": "declined_island" },
+    "requires": { "min_valuation": 30000, "min_month": 12, "not_flag": "island_visit" },
+    "weight": 3,
+    "once": true
+  },
+  {
+    "id": "jw_island",
+    "character": "jeffrey",
+    "text": "The island has marble statues, a temple nobody explains, and guests with no last names. Over dinner, Jeffrey offers to run $15M through his Virgin Islands fund. 'Returns are guaranteed. Questions are discouraged.'",
+    "left": { "label": "Take the money. Ask nothing.", "effects": { "cash": 15000, "morale": -5 }, "sets_flag": "island_deal", "next_card": "jw_shell" },
+    "right": { "label": "Just enjoy the beach", "effects": { "hype": 4, "morale": -3 } },
+    "requires": { "flag": "island_visit" },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "jw_shell",
+    "character": "jeffrey",
+    "text": "Step two. A shell company — Meridian Holdings (BVI) — will invoice your startup for consulting that never happens. The money comes back clean. Minus his cut. 'Everyone does this,' he says. Everyone does not do this.",
+    "left": { "label": "Route it through Meridian", "effects": { "cash": 10000, "morale": -8 }, "sets_flag": "island_laundering" },
+    "right": { "label": "That's money laundering. I'm out.", "effects": { "hype": -2 }, "sets_flag": "island_out" },
+    "requires": { "flag": "island_deal" },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "jw_books",
+    "character": "jeffrey",
+    "text": "Jeffrey thinks your revenue could be... rounder. His fund will buy $25M of 'enterprise licenses' you never ship. Your growth chart goes vertical. Your auditor goes very, very quiet.",
+    "left": { "label": "Book the revenue", "effects": { "cash": 25000, "hype": 12, "valuation": 120000 }, "sets_flag": "cooked_books" },
+    "right": { "label": "Too far. Even for me.", "effects": { "morale": 3 } },
+    "requires": { "flag": "island_laundering" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "jw_raid",
+    "character": "fbi",
+    "text": "6 AM. Windbreakers with three letters on the back. The warrant reads: wire fraud, money laundering, securities fraud, conspiracy. Jeffrey kept flight manifests. Your name appears eleven times. Meridian's invoices are printed. And highlighted.",
+    "left": { "label": "Lawyer up. Deny everything.", "sets_flag": "denied_feds", "arrest": true },
+    "right": { "label": "Flip on Jeffrey. Cooperate.", "sets_flag": "flipped_on_jeffrey", "arrest": true },
+    "requires": { "flag": "island_laundering" },
+    "weight": 26,
+    "once": true
+  },
+  {
+    "id": "jw_subpoena",
+    "character": "doug",
+    "text": "The SEC would like a word about a $15M 'investment' from a fund that doesn't file anything, anywhere. Doug slides the subpoena across the table. 'I told you that guy owned zero marinas.'",
+    "left": { "label": "Settle. Disgorge everything.", "effects": { "cash": -18000, "morale": -6, "hype": -8 }, "sets_flag": "settled_sec" },
+    "right": { "label": "Return the money quietly", "effects": { "cash": -15000, "morale": -3 }, "sets_flag": "settled_sec" },
+    "requires": { "flag": "island_deal", "not_flag": "island_laundering" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "jw_news",
+    "character": "linda",
+    "text": "Jeffrey Weinstein was arrested on his jet this morning. It's everywhere. Your one visit to the island is in the flight logs, and a reporter is already in the lobby.",
+    "left": { "label": "Full statement, full transparency", "effects": { "hype": -8, "morale": 2 } },
+    "right": { "label": "'We don't comment on travel'", "effects": { "hype": -4, "morale": -4 } },
+    "requires": { "flag": "island_visit", "not_flags": ["island_deal", "island_laundering"] },
+    "weight": 12,
+    "once": true
   }
 ]
