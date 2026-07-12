@@ -54,7 +54,11 @@ func _initialize() -> void:
 		"fund_b_crossover", "fund_b_structured", "fund_c_sovereign", "fund_d_ratchet"]
 	var ids := {}
 	for c in deck.cards:
-		ids[c.get("id", "")] = true
+		var cid: String = c.get("id", "")
+		if ids.has(cid):
+			printerr("FAIL: duplicate card id ", cid)
+			failures += 1
+		ids[cid] = true
 	for id in want:
 		if not ids.has(id):
 			printerr("FAIL: missing card ", id)
