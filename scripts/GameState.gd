@@ -66,6 +66,8 @@ func current_burn() -> int:
 		burn -= 15
 	if flags.has("lean_infra"):
 		burn -= 10
+	if flags.has("ghost_genius"):
+		burn -= 10
 	if flags.has("venture_debt"):
 		burn += 30
 	if flags.has("rev_share"):

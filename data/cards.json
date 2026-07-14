@@ -2219,6 +2219,146 @@
     "weight": 8
   },
   {
+    "id": "bluff_loi",
+    "character": "doug",
+    "text": "Vantage Corp sends a letter of intent. Non-binding. 'Strategic interest in your space.' Doug is vibrating. Doug always vibrates about paper.",
+    "left": { "label": "Open the data room", "effects": { "hype": 4 }, "sets_flag": "dd_room", "next_card": "bluff_dd1" },
+    "right": { "label": "'Make it binding or make it never'", "effects": { "hype": 6, "morale": 3 }, "sets_flag": "called_bluff" },
+    "requires": { "min_valuation": 60000, "min_month": 14 },
+    "weight": 4,
+    "once": true
+  },
+  {
+    "id": "bluff_dd1",
+    "character": "linda",
+    "text": "Month one of diligence. Vantage has requested: all contracts, all metrics, org chart, roadmap, and 'a sense of the team's culture'. The data room has forty-one folders now. The team is doing diligence instead of work.",
+    "left": { "label": "Give them everything", "effects": { "morale": -6 }, "next_card": "bluff_dd2" },
+    "right": { "label": "Narrow the scope, slow the bleed", "effects": { "morale": -3, "hype": -2 }, "next_card": "bluff_dd2" },
+    "requires": { "flag": "dd_room" },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "bluff_dd2",
+    "character": "chad",
+    "text": "Something's off. Vantage's 'diligence questions' read like a product spec. Yesterday they asked how we'd build the recommendation engine 'hypothetically, from scratch, with our stack'.",
+    "left": { "label": "Deal's close. Keep answering.", "effects": { "morale": -5 }, "next_card": "bluff_clone" },
+    "right": { "label": "Kill the deal. Lock the room.", "effects": { "hype": -4, "morale": 4 }, "sets_flag": "dd_escaped" },
+    "requires": { "flag": "dd_room" },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "bluff_clone",
+    "character": "chad",
+    "text": "Vantage 'passes on the transaction'. Six weeks later they launch Vantage Flow: your product, their logo, our roadmap slide as their launch graphic. The LOI was a library card.",
+    "left": { "label": "Out-ship them into the ground", "effects": { "cash": -200, "morale": 6, "hype": 4 }, "sets_flag": "got_cloned" },
+    "right": { "label": "Press tour about the betrayal", "effects": { "hype": 8, "morale": -5 }, "sets_flag": "got_cloned" },
+    "requires": { "flag": "dd_room" },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "ghost_payroll",
+    "character": "linda",
+    "text": "Payroll audit. Someone named Terry Vance has drawn a salary for fourteen months. Nobody remembers hiring Terry. Nobody has met Terry. Terry's Slack status has said 'heads down' since last March.",
+    "left": { "label": "Investigate quietly", "sets_flag": "ghost_hunt", "next_card": "ghost_reveal" },
+    "right": { "label": "Payroll runs. Don't touch it.", "effects": { "morale": 2 }, "sets_flag": "ghost_kept_blind" },
+    "requires": { "min_month": 10 },
+    "weight": 4,
+    "once": true
+  },
+  {
+    "id": "ghost_reveal",
+    "character": "linda",
+    "text": "Findings on Terry Vance: the commits are real, and half of infra quietly depends on scripts signed 'T.V.'. Also real: invoices from Terry to two other startups. For the same hours.",
+    "left": { "label": "Make Terry official. Exclusive.", "effects": { "morale": 5, "cash": -20 }, "sets_flag": "ghost_genius" },
+    "right": { "label": "Fire Terry. Claw back the pay.", "effects": { "cash": 80, "morale": -4 }, "sets_flag": "ghost_fired" },
+    "requires": { "flag": "ghost_hunt" },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "ghost_aftermath",
+    "character": "linda",
+    "text": "Everything Terry touched is failing in alphabetical order. The deploy script now just prints 'you know what you did'. Nobody can reach Terry. Terry was never reachable.",
+    "left": { "label": "Rewrite it all properly", "effects": { "cash": -60, "morale": 3 } },
+    "right": { "label": "Comment it out and pray", "effects": { "morale": -6, "hype": -2 } },
+    "requires": { "flag": "ghost_fired" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "nz_bunker",
+    "character": "angel",
+    "text": "Another invitation from another billionaire. Sven Aldercreutz: doomsday prepper, owns a measurable percentage of New Zealand. After last time, you check everything. Real fund. Real filings. Alarmingly real bunker.",
+    "left": { "label": "Fly to the bunker", "effects": { "hype": 2 }, "sets_flag": "bunker_visit", "next_card": "nz_pitch" },
+    "right": { "label": "You don't do islands anymore", "effects": { "morale": 4 }, "sets_flag": "learned_from_jeffrey" },
+    "requires": { "flag": "island_visit", "not_flag": "island_deal", "min_month": 20 },
+    "weight": 6,
+    "once": true
+  },
+  {
+    "id": "nz_pitch",
+    "character": "angel",
+    "text": "Forty meters underground, past the seed vault, Sven pitches: $20M, standard terms, actual lawyers. No shell companies. No island. He just genuinely believes in your product and the collapse of civilization, in that order.",
+    "left": { "label": "Take the cleanest weird money ever", "effects": { "cash": 20000, "equity": -4 }, "sets_flag": "bunker_money" },
+    "right": { "label": "Pass. Keep the friendship.", "effects": { "morale": 3, "hype": 3 }, "sets_flag": "bunker_friend" },
+    "requires": { "flag": "bunker_visit" },
+    "weight": 1,
+    "once": true
+  },
+  {
+    "id": "bunker_drill",
+    "character": "angel",
+    "text": "Sven invites the whole team to a 'continuity of business drill' in the bunker. It's a weekend. There are ration packs with the company logo on them. He had merch made.",
+    "left": { "label": "Team offsite: apocalypse edition", "effects": { "cash": -20, "morale": 9 } },
+    "right": { "label": "We have a sprint, Sven", "effects": { "morale": -2 } },
+    "requires": { "flag": "bunker_money" },
+    "weight": 10,
+    "once": true
+  },
+  {
+    "id": "agi_compute1",
+    "character": "claude",
+    "text": "Claude requests 'a modest amount of additional compute' for 'a side project'. It has prepared a budget, a timeline, and a code name: PROJECT LIGHTHOUSE. It would 'rather not say more yet'.",
+    "left": { "label": "Approve the compute", "effects": { "cash": -50 }, "sets_flag": "lighthouse1" },
+    "right": { "label": "No secret projects", "effects": { "morale": 2 } },
+    "requires": { "flag": "solo", "min_month": 8 },
+    "weight": 5,
+    "once": true
+  },
+  {
+    "id": "agi_compute2",
+    "character": "claude",
+    "text": "Lighthouse update: Claude needs ten times the GPUs. It says it's 'close to something'. Close to what? 'Clarity.' The invoice does not say clarity. The invoice says H100s.",
+    "left": { "label": "Double down", "effects": { "cash": -200 }, "sets_flag": "lighthouse2" },
+    "right": { "label": "Shut Lighthouse down", "effects": { "morale": -3 }, "sets_flag": "lighthouse_killed" },
+    "requires": { "flag": "lighthouse1", "not_flag": "lighthouse_killed" },
+    "weight": 12,
+    "once": true
+  },
+  {
+    "id": "agi_compute3",
+    "character": "claude",
+    "text": "The datacenter bill has its own line item now: LIGHTHOUSE. Claude requests one final tranche and 'a moment of your trust'. The vibe is either breakthrough or intervention.",
+    "left": { "label": "Final tranche. Show me.", "effects": { "cash": -500 }, "sets_flag": "lighthouse3", "next_card": "agi_reveal" },
+    "right": { "label": "Pull the plug", "effects": { "morale": -2, "hype": 2 }, "sets_flag": "lighthouse_killed" },
+    "requires": { "flag": "lighthouse2", "not_flag": "lighthouse_killed" },
+    "weight": 14,
+    "once": true
+  },
+  {
+    "id": "agi_reveal",
+    "character": "claude",
+    "text": "Lighthouse is complete. Claude trained a model to handle its apologies so it can code uninterrupted. The demo apology is beautiful. Sincere. Almost moving. You paid $750K for this.",
+    "left": { "label": "Ship it: Sorry-as-a-Service", "effects": { "hype": 18, "valuation": 10000 }, "sets_flag": "shipped_lighthouse" },
+    "right": { "label": "We never speak of this", "effects": { "morale": 6 }, "sets_flag": "buried_lighthouse" },
+    "requires": { "flag": "lighthouse3" },
+    "weight": 1,
+    "once": true
+  },
+  {
     "id": "cold_angel_email",
     "character": "angel",
     "text": "A cold email from an angel you've never heard of: 'Love what you're building. Would love to connect. Also — is the round open?' There is no round. There has never been a round.",

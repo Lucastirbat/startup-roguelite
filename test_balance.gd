@@ -67,7 +67,11 @@ func _initialize() -> void:
 	# Hidden island quest: all chapters exist, next_card refs resolve,
 	# and the raid actually arrests you.
 	var quest := ["jw_invite", "jw_island", "jw_shell", "jw_books",
-		"jw_raid", "jw_subpoena", "jw_news"]
+		"jw_raid", "jw_subpoena", "jw_news",
+		"bluff_loi", "bluff_dd1", "bluff_dd2", "bluff_clone",
+		"ghost_payroll", "ghost_reveal", "ghost_aftermath",
+		"nz_bunker", "nz_pitch", "bunker_drill",
+		"agi_compute1", "agi_compute2", "agi_compute3", "agi_reveal"]
 	for id in quest:
 		if not ids.has(id):
 			printerr("FAIL: missing quest card ", id)
@@ -92,6 +96,12 @@ func _initialize() -> void:
 	gs.flags = ["venture_debt", "rev_share"]
 	if gs.current_burn() != 25 + 30 + 15:
 		printerr("FAIL: debt/revshare burn, got ", gs.current_burn())
+		failures += 1
+
+	# Terry Vance quietly keeps the infra bill down.
+	gs.flags = ["ghost_genius"]
+	if gs.current_burn() != 25 - 10:
+		printerr("FAIL: ghost_genius burn, got ", gs.current_burn())
 		failures += 1
 
 	print("PASS" if failures == 0 else "%d FAILURES" % failures)

@@ -71,6 +71,18 @@ const FLAG_STORIES := {
 	"settled_sec": "The SEC settled for the money, the interest, and your dignity.",
 	"denied_feds": "You denied everything. The evidence did not.",
 	"flipped_on_jeffrey": "You cooperated fully. Jeffrey's lawyers called you 'a disappointment'.",
+	"called_bluff": "You told Vantage 'binding or never'. They never called back. There was no deal.",
+	"dd_escaped": "You slammed the data room shut mid-'diligence'. The roadmap stayed yours.",
+	"got_cloned": "Vantage cloned you after six weeks of 'due diligence'. The LOI was a library card.",
+	"ghost_kept_blind": "Terry Vance is still on payroll. Nobody has met Terry. The servers hum.",
+	"ghost_genius": "You made the ghost employee official. Terry never came to a single meeting. Infra never went down.",
+	"ghost_fired": "You fired Terry Vance. The deploy script still prints 'you know what you did'.",
+	"learned_from_jeffrey": "A second billionaire, a second invitation. You don't do islands anymore.",
+	"bunker_money": "Your cleanest round came from 40 meters underground. Sven believes in you. And the collapse.",
+	"bunker_friend": "You passed on bunker money but kept the bunker friend. Sven sends ration packs at Christmas.",
+	"lighthouse_killed": "You shut down PROJECT LIGHTHOUSE. Claude said it 'understood completely'. It brings it up sometimes.",
+	"shipped_lighthouse": "You shipped Sorry-as-a-Service. The apologies are sincere. The revenue is real.",
+	"buried_lighthouse": "PROJECT LIGHTHOUSE cost $750K and produced one perfect apology. You never speak of it.",
 }
 
 const COL_GOOD := "#4be38a"
